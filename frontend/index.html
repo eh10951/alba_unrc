@@ -99,6 +99,9 @@
   <p id="texto">Presiona el botón y habla</p>
 
   <button onclick="escuchar()">🎤 Habla con Alba</button>
+  <button onclick="escribir()" style="margin-left: 10px;">✏️ Escribir</button>
+  <br>
+  <input type="text" id="textoEscrito" placeholder="O escribe tu pregunta aquí..." style="margin-top: 10px; padding: 8px; width: 300px; border-radius: 5px; border: 1px solid #00ff99; background: #001122; color: #00eaff;" />
   <br>
   <label for="voz">Selecciona voz: </label>
   <select id="voz"></select>
@@ -141,36 +144,102 @@
     }
 
     function escuchar() {
+      // Verificar soporte de reconocimiento de voz
+      if (!('SpeechRecognition' in window) && !('webkitSpeechRecognition' in window)) {
+        alert("Tu navegador no soporta reconocimiento de voz. Prueba con Chrome o Firefox.");
+        return;
+      }
+
       const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
       recognition.lang = "es-ES";
+      recognition.continuous = false;
+      recognition.interimResults = false;
+      recognition.maxAlternatives = 1;
+
+      // Mensaje mientras escucha
+      document.getElementById("texto").innerText = "🎤 Escuchando... Habla ahora";
+
       recognition.start();
 
       recognition.onresult = function(event) {
         const comando = event.results[0][0].transcript.toLowerCase();
         document.getElementById("texto").innerText = "Tú dijiste: " + comando;
 
-        // Enviar texto al backend Flask para clasificar
-        // URL dinámica que funciona en local y producción
-        const baseUrl = window.location.origin;
-        fetch(`${baseUrl}/clasificar`, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ texto: comando })
-        })
-        .then(res => res.json())
-        .then(data => {
-          document.getElementById("respuesta").innerText = data.respuesta;
-          document.getElementById("consejo").innerText = "Consejo: " + data.consejo;
-
-          // Leer con voz profesional
-          speak(data.respuesta + ". " + data.consejo);
-        })
-        .catch(err => {
-          console.error(err);
-          speak("Ocurrió un error al comunicarse con el servidor.");
-        });
+        // Procesar el texto reconocido
+        procesarTexto(comando);
       }
+
+      recognition.onerror = function(event) {
+        console.log('Error de reconocimiento:', event.error);
+        let mensaje = "Error: ";
+        switch(event.error) {
+          case 'no-speech':
+            mensaje += "No se detectó voz. Inténtalo de nuevo.";
+            break;
+          case 'network':
+            mensaje += "Error de conexión. Verifica tu internet.";
+            break;
+          case 'not-allowed':
+            mensaje += "Permisos de micrófono denegados. Actívalos en configuración.";
+            break;
+          default:
+            mensaje += "Problema con el micrófono. Prueba refrescar la página.";
+        }
+        document.getElementById("texto").innerText = mensaje;
+        speak(mensaje);
+      };
+
+      recognition.onend = function() {
+        document.getElementById("texto").innerText = "Presiona el botón y habla";
+      };
     }
+
+    function escribir() {
+      const textoEscrito = document.getElementById("textoEscrito").value.trim();
+      if (!textoEscrito) {
+        alert("Por favor, escribe algo en el campo de texto.");
+        return;
+      }
+
+      document.getElementById("texto").innerText = "Tú escribiste: " + textoEscrito;
+      
+      // Usar la misma lógica que el reconocimiento de voz
+      procesarTexto(textoEscrito.toLowerCase());
+      
+      // Limpiar el campo
+      document.getElementById("textoEscrito").value = "";
+    }
+
+    function procesarTexto(comando) {
+      // URL dinámica que funciona en local y producción
+      const baseUrl = window.location.origin;
+      fetch(`${baseUrl}/clasificar`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ texto: comando })
+      })
+      .then(res => res.json())
+      .then(data => {
+        document.getElementById("respuesta").innerText = data.respuesta;
+        document.getElementById("consejo").innerText = "Consejo: " + data.consejo;
+
+        // Leer con voz profesional
+        speak(data.respuesta + ". " + data.consejo);
+      })
+      .catch(err => {
+        console.error(err);
+        speak("Ocurrió un error al comunicarse con el servidor.");
+      });
+    }
+
+    // Permitir enviar con Enter
+    document.addEventListener('DOMContentLoaded', function() {
+      document.getElementById("textoEscrito").addEventListener("keypress", function(event) {
+        if (event.key === "Enter") {
+          escribir();
+        }
+      });
+    });
   </script>
 </body>
 </html>
