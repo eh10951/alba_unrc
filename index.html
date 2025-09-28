@@ -150,9 +150,7 @@
         document.getElementById("texto").innerText = "Tú dijiste: " + comando;
 
         // Enviar texto al backend Flask para clasificar
-        // URL dinámica que funciona en local y producción
-        const baseUrl = window.location.origin;
-        fetch(`${baseUrl}/clasificar`, {
+        fetch("http://127.0.0.1:5000/clasificar", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ texto: comando })
