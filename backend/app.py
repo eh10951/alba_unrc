@@ -47,34 +47,59 @@ textos_desercion = [
     "ya no quiero ir a clases nunca", "voy a abandonar mis estudios", "no me sirve estudiar esto",
     "odio ir a la universidad", "no aguanto más", "me quiero salir definitivamente",
     "esto no es para mí", "quiero renunciar", "no puedo seguir estudiando",
-    "voy a dejar todo", "no soporto más", "quiero abandonar todo"
+    "voy a dejar todo", "no soporto más", "quiero abandonar todo",
+    "no vale la pena estudiar", "esto es una pérdida de tiempo", "odio esta carrera",
+    "me quiero cambiar de carrera", "ya no aguanto más clases", "estoy harto de estudiar",
+    "no sirvo para esto", "mejor me salgo", "no tiene sentido continuar",
+    "estoy perdiendo el tiempo aquí", "no me gusta nada de esto", "todo me sale mal",
+    "no entiendo nada y ya me cansé", "prefiero trabajar que estudiar", "esto es muy difícil para mí"
 ]
 
 textos_motivacion = [
-    # Frases CLARAMENTE positivas sobre la escuela
-    "me gusta la escuela", "me gusta estudiar mucho", "quiero mejorar mis notas",
+    # Frases CLARAMENTE positivas sobre la escuela y estudio
     "busco motivación para estudiar", "cómo ser mejor estudiante", "técnicas de estudio efectivas",
-    "quiero seguir estudiando siempre", "me encanta aprender", "disfruto ir a clases",
-    "me gusta mi carrera", "estoy feliz estudiando", "me gusta venir a la universidad",
-    "quiero ser buen estudiante", "me motiva estudiar", "me siento bien en la escuela",
-    "amo mi carrera", "me gusta mucho la universidad", "disfruto aprendiendo",
-    "me encanta ir a clases", "quiero destacar en mis estudios", "me siento motivado",
-    "estoy contento con mis estudios", "me gusta todo de la escuela"
+    "quiero mejorar mis hábitos de estudio", "necesito consejos para estudiar mejor",
+    "cómo organizarme mejor", "quiero ser más disciplinado", "necesito técnicas de concentración",
+    "cómo manejar mi tiempo de estudio", "quiero ser más productivo estudiando",
+    "consejos para no procrastinar", "cómo mantenerme motivado", "estrategias de aprendizaje",
+    "cómo mejorar mi rendimiento académico", "técnicas de memorización",
+    "cómo preparar mejor los exámenes", "consejos para tomar mejores apuntes",
+    "cómo superar la pereza para estudiar", "métodos de estudio efectivos"
 ]
 
 textos_positivos_escuela = [
-    # Comentarios positivos generales sobre la experiencia escolar
-    "la escuela está bien", "me gusta venir aquí", "la universidad es buena",
+    # Comentarios EXPLÍCITAMENTE positivos sobre la experiencia escolar
+    "me gusta la escuela", "me gusta estudiar mucho", "me gusta la universidad",
+    "me encanta aprender", "disfruto ir a clases", "me gusta mi carrera",
+    "estoy feliz estudiando", "me gusta venir a la universidad", "amo mi carrera",
+    "me gusta mucho la universidad", "disfruto aprendiendo", "me encanta ir a clases",
+    "quiero destacar en mis estudios", "me siento motivado estudiando",
+    "estoy contento con mis estudios", "me gusta todo de la escuela",
+    "la escuela está genial", "me gusta venir aquí", "la universidad es buena",
     "estoy bien en la escuela", "me siento cómodo aquí", "la escuela es interesante",
-    "me agrada la universidad", "disfruto estar aquí", "la escuela me parece bien",
-    "me gusta el ambiente", "la universidad está padre", "me siento a gusto",
-    "la escuela es genial", "me divierte estar aquí", "me gusta el campus"
+    "me agrada la universidad", "disfruto estar aquí", "me gusta el ambiente",
+    "la universidad está padre", "me siento a gusto", "la escuela es genial",
+    "me divierte estar aquí", "me gusta el campus", "me gusta estudiar aquí",
+    "que buena está la universidad", "me fascina mi carrera", "amo estudiar",
+    "me encanta esta universidad", "disfruto mucho las clases", "me gusta aprender",
+    "estoy muy contento aquí", "me parece excelente la escuela"
+]
+
+# Textos negativos generales (quejas sin intención de abandono)
+textos_negativos = [
+    "esta materia es muy difícil", "no me gusta esta clase", "el profesor explica mal",
+    "esto está muy complicado", "no entiendo nada", "esto es muy aburrido",
+    "esta clase es un fastidio", "qué difícil está todo", "no me sale nada bien",
+    "estoy muy estresado con los estudios", "tengo muchas tareas", "esto me frustra",
+    "no logro concentrarme", "me cuesta mucho trabajo", "esto me desespera",
+    "qué complicado está todo", "me siento abrumado", "esto me está costando",
+    "no me está yendo bien", "estoy batallando mucho", "esto me tiene estresado"
 ]
 
 # Combinar todos los textos
 todos_los_textos = (textos_matematicas + textos_fisica + textos_quimica + 
                    textos_programacion + textos_desercion + textos_motivacion + 
-                   textos_positivos_escuela)
+                   textos_positivos_escuela + textos_negativos)
 
 todas_las_etiquetas = (["matematicas"] * len(textos_matematicas) +
                       ["fisica"] * len(textos_fisica) +
@@ -82,7 +107,8 @@ todas_las_etiquetas = (["matematicas"] * len(textos_matematicas) +
                       ["programacion"] * len(textos_programacion) +
                       ["desercion"] * len(textos_desercion) +
                       ["motivacion"] * len(textos_motivacion) +
-                      ["positivo"] * len(textos_positivos_escuela))
+                      ["positivo"] * len(textos_positivos_escuela) +
+                      ["negativo"] * len(textos_negativos))
 
 # Entrenar modelo con mejor configuración
 X = vectorizer.fit_transform(todos_los_textos)
@@ -144,6 +170,13 @@ consejos = {
         "📢 TESTIMONIOS INSPIRADORES: Comparte tu experiencia positiva en eventos de orientación para nuevos estudiantes. Centro de Comunicación busca historias estudiantiles exitosas.",
         "🏅 RECONOCIMIENTOS: Postúlate a programas de reconocimiento como 'Estudiante del Mes' o 'Orgullo Universitario'. Tu actitud positiva merece ser destacada institucionalmente.",
         "🤝 MENTORING: Considera ser mentor de estudiantes de primer semestre. Tu experiencia positiva puede ayudar a otros a adaptarse mejor a la vida universitaria."
+    ],
+    "negativo": [
+        "😌 MANEJO DEL ESTRÉS: Contacta al Centro de Bienestar Estudiantil para técnicas de manejo de estrés académico. Psic. María González ofrece talleres gratuitos de relajación martes y jueves 3-4 PM.",
+        "🎯 CAMBIO DE ESTRATEGIA: Programa cita con tu Coordinador Académico para evaluar carga de materias y encontrar alternativas. A veces reducir materias mejora el rendimiento general.",
+        "👥 GRUPOS DE APOYO: Únete al Círculo de Apoyo Estudiantil que se reúne viernes 4 PM en el aula 102. Compartir experiencias con otros estudiantes alivia la presión académica.",
+        "⏰ GESTIÓN DEL TIEMPO: Taller 'Organización Académica Efectiva' del Centro de Desarrollo Estudiantil, sábados 10 AM. Aprende técnicas para distribuir mejor tu carga de trabajo.",
+        "🧘 TÉCNICAS DE RELAJACIÓN: App institucional 'Mindfulness UNRC' con meditaciones guiadas de 5-15 min. También yoga estudiantil gratuito en el gimnasio universitario."
     ]
 }
 
@@ -153,29 +186,61 @@ def clasificar():
         data = request.json
         texto = data.get("texto", "").lower()
         
-        # Verificación adicional para palabras clave positivas/negativas
-        palabras_muy_positivas = ["me gusta", "me encanta", "amo", "disfruto", "genial", "bueno", "bien", "contento", "feliz"]
-        palabras_muy_negativas = ["odio", "no aguanto", "quiero dejar", "abandonar", "salir", "renunciar", "no soporto"]
+        # Sistema de detección mejorado con palabras clave
+        palabras_muy_positivas = [
+            "me gusta", "me encanta", "amo", "disfruto", "genial", "bueno", "bien", 
+            "contento", "feliz", "excelente", "fantástico", "maravilloso", "perfecto",
+            "increíble", "fascinante", "divertido", "interesante", "motivado"
+        ]
         
-        # Contar palabras positivas y negativas
-        positivas = sum(1 for palabra in palabras_muy_positivas if palabra in texto)
-        negativas = sum(1 for palabra in palabras_muy_negativas if palabra in texto)
+        palabras_desercion = [
+            "quiero dejar", "voy a abandonar", "me quiero salir", "quiero renunciar",
+            "no aguanto más", "no soporto", "odio", "abandonar", "dejar todo",
+            "salirme", "cambiarme de carrera", "esto no es para mí"
+        ]
         
-        # Clasificación por ML
+        palabras_negativas_generales = [
+            "difícil", "complicado", "no entiendo", "frustra", "estresado", "abrumado",
+            "batallando", "no me sale", "me cuesta", "desespera", "fastidio", "aburrido"
+        ]
+        
+        # Frases completas que indican positividad clara
+        frases_muy_positivas = [
+            "me gusta la escuela", "me gusta estudiar", "me gusta la universidad",
+            "me encanta aprender", "disfruto las clases", "amo mi carrera",
+            "me gusta mi carrera", "estoy feliz estudiando", "me motiva estudiar"
+        ]
+        
+        # Clasificación por ML primero
         X_test = vectorizer.transform([texto])
         pred = model.predict(X_test)[0]
         probabilidades = model.predict_proba(X_test)[0]
         confianza = max(probabilidades)
         
-        # Corrección inteligente: si hay más palabras positivas y predice deserción, corregir
-        if pred == "desercion" and positivas > negativas and positivas > 0:
-            pred = "positivo"
-            confianza = 0.85
+        # Sistema de corrección inteligente
         
-        # Si es claramente positivo sobre la escuela, asegurar clasificación correcta
-        if any(frase in texto for frase in ["me gusta la escuela", "me gusta estudiar", "me gusta la universidad"]):
+        # 1. Verificar frases explícitamente positivas
+        if any(frase in texto for frase in frases_muy_positivas):
             pred = "positivo"
+            confianza = 0.95
+        
+        # 2. Contar indicadores en el texto
+        positivas = sum(1 for palabra in palabras_muy_positivas if palabra in texto)
+        desercion_palabras = sum(1 for palabra in palabras_desercion if palabra in texto)
+        negativas_generales = sum(1 for palabra in palabras_negativas_generales if palabra in texto)
+        
+        # 3. Lógica de corrección mejorada
+        if desercion_palabras > 0:
+            pred = "desercion"
             confianza = 0.90
+        elif positivas > 0 and desercion_palabras == 0:
+            if "escuela" in texto or "universidad" in texto or "estudiar" in texto:
+                pred = "positivo"
+                confianza = 0.88
+        elif negativas_generales > positivas and negativas_generales > 0 and desercion_palabras == 0:
+            if pred not in ["matematicas", "fisica", "quimica", "programacion"]:
+                pred = "negativo"
+                confianza = 0.85
             
         # Elegir un consejo según categoría
         consejo = random.choice(consejos.get(pred, consejos["motivacion"]))
@@ -186,9 +251,10 @@ def clasificar():
             "fisica": "Identifico una consulta sobre física", 
             "quimica": "Detecto que tienes dudas de química",
             "programacion": "Reconozco una pregunta sobre programación",
-            "desercion": "Noto que estás pasando por un momento difícil con tus estudios",
-            "motivacion": "¡Qué bueno verte tan motivado con tus estudios!",
-            "positivo": "¡Me alegra escuchar comentarios tan positivos sobre la escuela!"
+            "desercion": "Noto que estás pasando por un momento muy difícil y considerando dejar los estudios",
+            "motivacion": "¡Qué bueno verte buscando motivación para mejorar en tus estudios!",
+            "positivo": "¡Me alegra mucho escuchar comentarios tan positivos sobre la escuela!",
+            "negativo": "Entiendo que estás pasando por una situación estresante o frustrante con tus estudios"
         }
         
         respuesta = respuestas_naturales.get(pred, f"He identificado tu consulta sobre: {pred}")
