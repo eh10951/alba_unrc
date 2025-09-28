@@ -159,11 +159,20 @@
         })
         .then(res => res.json())
         .then(data => {
-          document.getElementById("respuesta").innerText = data.respuesta;
-          document.getElementById("consejo").innerText = "Consejo: " + data.consejo;
+          // Mostrar información más profesional
+          document.getElementById("respuesta").innerHTML = `
+            <strong>📋 Análisis:</strong> ${data.respuesta}<br>
+            <small style="color: #ffaa00;">Categoría: ${data.categoria} | Confianza: ${data.confianza}</small>
+          `;
+          document.getElementById("consejo").innerHTML = `
+            <strong>💡 Recomendación Profesional:</strong><br>
+            <div style="text-align: left; margin-top: 10px; padding: 10px; background: rgba(0,255,153,0.1); border-radius: 5px;">
+              ${data.consejo.replace(/🔬|📚|🎓|💻|⚗️|🧪|💼|🏢|👥|🚀|📊|🏥|📋|💰|🎯|🧠|📈|🏆|🌟|📖|🏛️|📝|🌍|✍️|🎭|📖|🌍|👥|💼/g, '<br><strong>$&</strong>')}
+            </div>
+          `;
 
-          // Leer con voz profesional
-          speak(data.respuesta + ". " + data.consejo);
+          // Leer respuesta profesional (más corta para mejor experiencia)
+          speak(`${data.respuesta}. Te he proporcionado recursos especializados en pantalla.`);
         })
         .catch(err => {
           console.error(err);
