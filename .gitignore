@@ -1,0 +1,26 @@
+# Entorno virtual de Python
+minijarvis/
+venv/
+env/
+*.pyc
+__pycache__/
+
+# Archivos del sistema
+.DS_Store
+Thumbs.db
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Logs
+*.log
+
+# Dependencias de Node.js (si las usas más adelante)
+node_modules/
+
+# Archivos temporales
+*.tmp
+*.temp
