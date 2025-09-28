@@ -227,51 +227,124 @@
     function cargarVozGoogle() {
       const voces = speechSynthesis.getVoices();
       
-      // Buscar específicamente la voz de Google en español de Estados Unidos
+      // PRIORIDAD 1: Buscar específicamente Google Español US femenina
       vozGoogleEspaño = voces.find(voz => 
         voz.name.includes('Google') && 
-        (voz.lang === 'es-US' || voz.lang === 'es-MX' || voz.lang.startsWith('es'))
+        voz.lang === 'es-US' &&
+        voz.name.toLowerCase().includes('female')
       );
       
-      // Si no encuentra Google, buscar cualquier voz en español de calidad
+      // PRIORIDAD 2: Google Español US (cualquier género)
       if (!vozGoogleEspaño) {
         vozGoogleEspaño = voces.find(voz => 
-          voz.lang.startsWith('es') && 
-          (voz.name.includes('Microsoft') || voz.name.includes('Helena') || voz.name.includes('Paulina'))
+          voz.name.includes('Google') && 
+          voz.lang === 'es-US'
         );
       }
       
-      // Fallback: primera voz en español disponible
+      // PRIORIDAD 3: Google Español México femenina
+      if (!vozGoogleEspaño) {
+        vozGoogleEspaño = voces.find(voz => 
+          voz.name.includes('Google') && 
+          voz.lang === 'es-MX' &&
+          voz.name.toLowerCase().includes('female')
+        );
+      }
+      
+      // PRIORIDAD 4: Cualquier Google en español
+      if (!vozGoogleEspaño) {
+        vozGoogleEspaño = voces.find(voz => 
+          voz.name.includes('Google') && 
+          voz.lang.startsWith('es')
+        );
+      }
+      
+      // PRIORIDAD 5: Voces femeninas de calidad en español US
+      if (!vozGoogleEspaño) {
+        vozGoogleEspaño = voces.find(voz => 
+          voz.lang === 'es-US' && 
+          (voz.name.includes('Microsoft') || voz.name.includes('Sabina') || voz.name.includes('Paulina'))
+        );
+      }
+      
+      // FALLBACK: Primera voz en español disponible
       if (!vozGoogleEspaño) {
         vozGoogleEspaño = voces.find(voz => voz.lang.startsWith('es'));
       }
       
-      console.log('Voz seleccionada:', vozGoogleEspaño ? vozGoogleEspaño.name : 'Voz del sistema');
+      console.log('Voz seleccionada:', vozGoogleEspaño ? `${vozGoogleEspaño.name} (${vozGoogleEspaño.lang})` : 'Voz del sistema');
+      
+      // Debug: Mostrar todas las voces disponibles en español
+      console.log('Voces en español disponibles:');
+      voces.filter(voz => voz.lang.startsWith('es')).forEach(voz => {
+        console.log(`- ${voz.name} (${voz.lang}) ${voz.gender || ''}`);
+      });
+    }
+
+    // Función para mostrar información de voces (solo para debug)
+    function mostrarVocesDisponibles() {
+      const voces = speechSynthesis.getVoices();
+      console.log('=== TODAS LAS VOCES DISPONIBLES ===');
+      voces.forEach((voz, index) => {
+        if (voz.lang.startsWith('es')) {
+          console.log(`${index}: ${voz.name} | ${voz.lang} | ${voz.localService ? 'Local' : 'Remoto'}`);
+        }
+      });
+      console.log('=====================================');
     }
 
     // Cargar voces cuando estén disponibles
-    speechSynthesis.onvoiceschanged = cargarVozGoogle;
+    speechSynthesis.onvoiceschanged = () => {
+      cargarVozGoogle();
+      mostrarVocesDisponibles(); // Para debug
+    };
     
     // Cargar voces inmediatamente si ya están disponibles
     if (speechSynthesis.getVoices().length > 0) {
       cargarVozGoogle();
+      mostrarVocesDisponibles(); // Para debug
     }
 
+    // Verificar voces después de un momento (fallback)
+    setTimeout(() => {
+      if (!vozGoogleEspaño) {
+        console.log('Reintentando cargar voces...');
+        cargarVozGoogle();
+      }
+    }, 1000);
+
     function speak(text) {
+      // Asegurar que las voces estén cargadas
+      if (!vozGoogleEspaño && speechSynthesis.getVoices().length > 0) {
+        cargarVozGoogle();
+      }
+      
       let utter = new SpeechSynthesisUtterance(text);
       
       // Configurar idioma específico para español de Estados Unidos
       utter.lang = "es-US";
       
-      // Usar la voz de Google si está disponible
+      // Usar la voz de Google femenina si está disponible
       if (vozGoogleEspaño) {
         utter.voice = vozGoogleEspaño;
+        console.log(`Usando voz: ${vozGoogleEspaño.name} (${vozGoogleEspaño.lang})`);
+      } else {
+        console.log('Usando voz del sistema por defecto');
       }
       
-      // Configuración optimizada para mejor calidad
-      utter.rate = 0.9;    // Velocidad ligeramente más lenta para claridad
-      utter.pitch = 1.0;   // Tono normal
+      // Configuración optimizada para voz femenina clara
+      utter.rate = 0.85;   // Velocidad más lenta para claridad femenina
+      utter.pitch = 1.1;   // Tono ligeramente más alto (más femenino)
       utter.volume = 1.0;  // Volumen máximo
+      
+      // Manejar errores de síntesis
+      utter.onerror = (event) => {
+        console.error('Error en síntesis de voz:', event.error);
+      };
+      
+      utter.onend = () => {
+        console.log('Síntesis de voz completada');
+      };
       
       speechSynthesis.speak(utter);
     }
