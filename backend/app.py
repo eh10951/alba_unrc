@@ -93,7 +93,15 @@ textos_negativos = [
     "estoy muy estresado con los estudios", "tengo muchas tareas", "esto me frustra",
     "no logro concentrarme", "me cuesta mucho trabajo", "esto me desespera",
     "qué complicado está todo", "me siento abrumado", "esto me está costando",
-    "no me está yendo bien", "estoy batallando mucho", "esto me tiene estresado"
+    "no me está yendo bien", "estoy batallando mucho", "esto me tiene estresado",
+    # Casos específicos de bajo rendimiento académico
+    "estoy reprobando materias", "voy mal en mis calificaciones", "saqué malas notas",
+    "reprobé el examen", "me fue mal en el examen", "tengo calificaciones bajas",
+    "estoy reprobando", "reprobé la materia", "tengo materias reprobadas",
+    "mis notas están muy bajas", "estoy fallando en los estudios", "no paso las materias",
+    "tengo puras calificaciones bajas", "me está yendo muy mal", "estoy fracasando",
+    "no logro aprobar", "siempre repruebo", "mis calificaciones son terribles",
+    "estoy perdiendo materias", "voy reprobando todo", "no puedo aprobar nada"
 ]
 
 # Combinar todos los textos
@@ -123,60 +131,60 @@ print(f"Modelo entrenado con {len(todos_los_textos)} ejemplos y {len(set(y))} ca
 # Consejos profesionales con recursos específicos
 consejos = {
     "matematicas": [
-        "📚 CURSOS RECOMENDADOS: Inscríbete en el curso 'Fundamentos de Álgebra' de Khan Academy (gratuito) y 'Cálculo Diferencial' en Coursera por Universidad UNAM. Contacta al Tutor de Matemáticas del Centro de Apoyo Académico de tu universidad.",
-        "👨‍🏫 APOYO PERSONALIZADO: Solicita tutoría con estudiantes de Ingeniería de semestres avanzados (programa peer tutoring). El Dr. Luis García del Departamento de Matemáticas ofrece asesorías los martes y jueves de 2-4 PM.",
-        "💻 RECURSOS DIGITALES: Usa Wolfram Alpha para verificar cálculos y Photomath para resolver paso a paso. El libro 'Álgebra de Baldor' está disponible gratis en la biblioteca digital universitaria.",
-        "🎯 PLAN DE ESTUDIO: Practica 30 min diarios con ejercicios graduales. Únete al Círculo de Estudio de Matemáticas que se reúne miércoles 4 PM en el aula 205. Profesora María Rodríguez coordina.",
-        "🏆 CERTIFICACIÓN: Considera el curso 'Matemáticas para Ciencias' del Tecnológico de Monterrey en edX (con certificado). Te dará una base sólida y reconocimiento académico adicional."
+        "CURSOS RECOMENDADOS: Inscríbete en el curso 'Fundamentos de Álgebra' de Khan Academy (gratuito) y 'Cálculo Diferencial' en Coursera por Universidad UNAM. Contacta al Tutor de Matemáticas del Centro de Apoyo Académico de tu universidad.",
+        "APOYO PERSONALIZADO: Solicita tutoría con estudiantes de Ingeniería de semestres avanzados (programa peer tutoring). El Dr. Luis García del Departamento de Matemáticas ofrece asesorías los martes y jueves de 2-4 PM.",
+        "RECURSOS DIGITALES: Usa Wolfram Alpha para verificar cálculos y Photomath para resolver paso a paso. El libro 'Álgebra de Baldor' está disponible gratis en la biblioteca digital universitaria.",
+        "PLAN DE ESTUDIO: Practica 30 min diarios con ejercicios graduales. Únete al Círculo de Estudio de Matemáticas que se reúne miércoles 4 PM en el aula 205. Profesora María Rodríguez coordina.",
+        "CERTIFICACIÓN: Considera el curso 'Matemáticas para Ciencias' del Tecnológico de Monterrey en edX (con certificado). Te dará una base sólida y reconocimiento académico adicional."
     ],
     "fisica": [
-        "🔬 LABORATORIOS ESPECIALIZADOS: Solicita acceso al Laboratorio de Física Básica fuera de horario de clase. El Ing. Roberto Martínez (Ext. 3421) coordina sesiones prácticas adicionales sábados 9-12.",
-        "📖 CURSOS COMPLEMENTARIOS: 'Física Universitaria' de UC Berkeley en edX y 'Mecánica Clásica' de MIT OpenCourseWare. Para refuerzo presencial, el Círculo de Física se reúne viernes 3 PM.",
-        "🎬 RECURSOS AUDIOVISUALES: Canal de YouTube 'MinutoDeFísica' y simuladores PhET de Universidad de Colorado. La Dra. Ana López ofrece tutorías personalizadas lunes y miércoles 1-3 PM.",
-        "📊 APOYO ACADÉMICO: El programa 'Nivelación en Ciencias Exactas' del Departamento de Física ofrece cursos remediales gratuitos. Inscripciones en Servicios Escolares.",
-        "🌟 PROYECTO APLICADO: Únete al Grupo de Divulgación Científica dirigido por el Dr. Carlos Hernández. Aplicar física en proyectos reales mejora comprensión y currículum."
+        "LABORATORIOS ESPECIALIZADOS: Solicita acceso al Laboratorio de Física Básica fuera de horario de clase. El Ing. Roberto Martínez (Ext. 3421) coordina sesiones prácticas adicionales sábados 9-12.",
+        "CURSOS COMPLEMENTARIOS: 'Física Universitaria' de UC Berkeley en edX y 'Mecánica Clásica' de MIT OpenCourseWare. Para refuerzo presencial, el Círculo de Física se reúne viernes 3 PM.",
+        "RECURSOS AUDIOVISUALES: Canal de YouTube 'MinutoDeFísica' y simuladores PhET de Universidad de Colorado. La Dra. Ana López ofrece tutorías personalizadas lunes y miércoles 1-3 PM.",
+        "APOYO ACADÉMICO: El programa 'Nivelación en Ciencias Exactas' del Departamento de Física ofrece cursos remediales gratuitos. Inscripciones en Servicios Escolares.",
+        "PROYECTO APLICADO: Únete al Grupo de Divulgación Científica dirigido por el Dr. Carlos Hernández. Aplicar física en proyectos reales mejora comprensión y currículum."
     ],
     "quimica": [
-        "⚗️ LABORATORIO ABIERTO: El Laboratorio de Química General ofrece sesiones libres sábados 10-1 PM. Contacta a la Q.F.B. Patricia Morales (Ext. 2890) para reservar equipo especializado.",
-        "🧪 CURSOS PROFESIONALES: 'Química General' de Universidad de Kentucky en Coursera y 'Organic Chemistry' de Yale (gratuito). Para apoyo presencial, Dr. Miguel Ángel Sánchez, cubículo 12B.",
-        "💻 SOFTWARE ESPECIALIZADO: Aprende ChemSketch (gratis) y MarvinSketch para estructura molecular. Centro de Cómputo ofrece taller 'Química Computacional' cada mes.",
-        "👥 GRUPOS DE ESTUDIO: Círculo de Química Orgánica dirigido por estudiantes de Ingeniería Química, jueves 5 PM, aula 108. Resuelven problemas complejos en equipo.",
-        "🏭 VINCULACIÓN INDUSTRIAL: Participa en visitas a plantas químicas organizadas por Vinculación Universitaria. Observar procesos reales consolida conocimiento teórico."
+        "LABORATORIO ABIERTO: El Laboratorio de Química General ofrece sesiones libres sábados 10-1 PM. Contacta a la Q.F.B. Patricia Morales (Ext. 2890) para reservar equipo especializado.",
+        "CURSOS PROFESIONALES: 'Química General' de Universidad de Kentucky en Coursera y 'Organic Chemistry' de Yale (gratuito). Para apoyo presencial, Dr. Miguel Ángel Sánchez, cubículo 12B.",
+        "SOFTWARE ESPECIALIZADO: Aprende ChemSketch (gratis) y MarvinSketch para estructura molecular. Centro de Cómputo ofrece taller 'Química Computacional' cada mes.",
+        "GRUPOS DE ESTUDIO: Círculo de Química Orgánica dirigido por estudiantes de Ingeniería Química, jueves 5 PM, aula 108. Resuelven problemas complejos en equipo.",
+        "VINCULACIÓN INDUSTRIAL: Participa en visitas a plantas químicas organizadas por Vinculación Universitaria. Observar procesos reales consolida conocimiento teórico."
     ],
     "programacion": [
-        "💼 CERTIFICACIONES PROFESIONALES: Google IT Automation with Python (Coursera), Microsoft Azure Fundamentals y AWS Cloud Practitioner (gratuitas para estudiantes). Centro de Vinculación Laboral te apoya.",
-        "👨‍💻 MENTORES ESPECIALIZADOS: Contacta a egresados en el programa Alumni Mentorship. El Ing. Fernando López (Google México) ofrece mentoría virtual mensual para estudiantes destacados.",
-        "🚀 PROYECTOS COLABORATIVOS: Únete a los capítulos estudiantiles ACM e IEEE. Participan en hackathons y tienen biblioteca especializada en el edificio de Ingeniería.",
-        "📚 CURSOS AVANZADOS: 'CS50 Introduction to Computer Science' de Harvard (gratis), 'Python for Data Science' de IBM. El Centro de Cómputo ofrece cursos presenciales.",
-        "🏢 PRÁCTICAS PROFESIONALES: Programa de Internships con empresas tech locales. Oficina de Prácticas Profesionales coordina con Microsoft, IBM y startups locales."
+        "CERTIFICACIONES PROFESIONALES: Google IT Automation with Python (Coursera), Microsoft Azure Fundamentals y AWS Cloud Practitioner (gratuitas para estudiantes). Centro de Vinculación Laboral te apoya.",
+        "MENTORES ESPECIALIZADOS: Contacta a egresados en el programa Alumni Mentorship. El Ing. Fernando López (Google México) ofrece mentoría virtual mensual para estudiantes destacados.",
+        "PROYECTOS COLABORATIVOS: Únete a los capítulos estudiantiles ACM e IEEE. Participan en hackathons y tienen biblioteca especializada en el edificio de Ingeniería.",
+        "CURSOS AVANZADOS: 'CS50 Introduction to Computer Science' de Harvard (gratis), 'Python for Data Science' de IBM. El Centro de Cómputo ofrece cursos presenciales.",
+        "PRÁCTICAS PROFESIONALES: Programa de Internships con empresas tech locales. Oficina de Prácticas Profesionales coordina con Microsoft, IBM y startups locales."
     ],
     "desercion": [
-        "🏥 URGENTE - BIENESTAR ESTUDIANTIL: Contacta HOY al Departamento de Bienestar Estudiantil (Ext. 2500, edificio administrativo 2do piso). Psic. Laura Jiménez especializada en crisis académicas.",
-        "📋 ASESORÍA ACADÉMICA INMEDIATA: Tu Coordinador Académico puede evaluar opciones: baja temporal, reducción de materias, cambio de modalidad. Agenda cita en Servicios Escolares.",
-        "💰 APOYO FINANCIERO: Programa de Becas de Emergencia y trabajo-estudio disponible. Lic. Carmen Flores (Oficina de Becas) evalúa casos especiales. También crédito educativo FONACOT.",
-        "🎯 ORIENTACIÓN VOCACIONAL: Centro de Orientación puede aplicar test vocacional y de intereses (gratuito). Confirma si tu carrera actual se alinea con tus aptitudes reales.",
-        "📞 LÍNEA DE APOYO 24/7: Universidad cuenta con línea de crisis estudiantil: 800-APOYO-U. También grupo de WhatsApp 'Red de Apoyo Estudiantil' moderado por Trabajo Social."
+        "URGENTE - BIENESTAR ESTUDIANTIL: Contacta HOY al Departamento de Bienestar Estudiantil (Ext. 2500, edificio administrativo 2do piso). Psic. Laura Jiménez especializada en crisis académicas.",
+        "ASESORÍA ACADÉMICA INMEDIATA: Tu Coordinador Académico puede evaluar opciones: baja temporal, reducción de materias, cambio de modalidad. Agenda cita en Servicios Escolares.",
+        "APOYO FINANCIERO: Programa de Becas de Emergencia y trabajo-estudio disponible. Lic. Carmen Flores (Oficina de Becas) evalúa casos especiales. También crédito educativo FONACOT.",
+        "ORIENTACIÓN VOCACIONAL: Centro de Orientación puede aplicar test vocacional y de intereses (gratuito). Confirma si tu carrera actual se alinea con tus aptitudes reales.",
+        "LÍNEA DE APOYO 24/7: Universidad cuenta con línea de crisis estudiantil: 800-APOYO-U. También grupo de WhatsApp 'Red de Apoyo Estudiantil' moderado por Trabajo Social."
     ],
     "motivacion": [
-        "🏆 PROGRAMA DE EXCELENCIA: Inscríbete en el Programa de Estudiantes Sobresalientes que ofrece mentorías, conferencias exclusivas y networking con profesionales exitosos.",
-        "📈 DESARROLLO DE HABILIDADES: Curso 'Técnicas de Estudio Avanzadas' del Centro de Desarrollo Estudiantil. También taller 'Liderazgo Universitario' con reconocimiento curricular.",
-        "🌟 SOCIEDADES ACADÉMICAS: Únete al Consejo Estudiantil o sociedad de alumnos de tu carrera. Liderazgo estudiantil desarrolla competencias valoradas por empleadores.",
-        "🎯 COACHING ACADÉMICO: Programa de coaching personalizado con egresados exitosos. 6 sesiones gratuitas enfocadas en metas académicas y desarrollo profesional.",
-        "🚀 OPORTUNIDADES ESPECIALES: Postúlate a programas de intercambio, concursos académicos y proyectos de investigación con profesores. Fortalecen perfil académico significativamente."
+        "PROGRAMA DE EXCELENCIA: Inscríbete en el Programa de Estudiantes Sobresalientes que ofrece mentorías, conferencias exclusivas y networking con profesionales exitosos.",
+        "DESARROLLO DE HABILIDADES: Curso 'Técnicas de Estudio Avanzadas' del Centro de Desarrollo Estudiantil. También taller 'Liderazgo Universitario' con reconocimiento curricular.",
+        "SOCIEDADES ACADÉMICAS: Únete al Consejo Estudiantil o sociedad de alumnos de tu carrera. Liderazgo estudiantil desarrolla competencias valoradas por empleadores.",
+        "COACHING ACADÉMICO: Programa de coaching personalizado con egresados exitosos. 6 sesiones gratuitas enfocadas en metas académicas y desarrollo profesional.",
+        "OPORTUNIDADES ESPECIALES: Postúlate a programas de intercambio, concursos académicos y proyectos de investigación con profesores. Fortalecen perfil académico significativamente."
     ],
     "positivo": [
-        "🌟 EMBAJADOR ESTUDIANTIL: Con tu actitud positiva, considera ser Embajador Estudiantil para orientar a nuevos estudiantes. Programa coordinado por Relaciones Estudiantiles.",
-        "🎓 ACTIVIDADES DE LIDERAZGO: Participa en el Consejo Estudiantil o comités académicos. Tu perspectiva positiva puede influir en mejoras para toda la comunidad universitaria.",
-        "📢 TESTIMONIOS INSPIRADORES: Comparte tu experiencia positiva en eventos de orientación para nuevos estudiantes. Centro de Comunicación busca historias estudiantiles exitosas.",
-        "🏅 RECONOCIMIENTOS: Postúlate a programas de reconocimiento como 'Estudiante del Mes' o 'Orgullo Universitario'. Tu actitud positiva merece ser destacada institucionalmente.",
-        "🤝 MENTORING: Considera ser mentor de estudiantes de primer semestre. Tu experiencia positiva puede ayudar a otros a adaptarse mejor a la vida universitaria."
+        "EMBAJADOR ESTUDIANTIL: Con tu actitud positiva, considera ser Embajador Estudiantil para orientar a nuevos estudiantes. Programa coordinado por Relaciones Estudiantiles.",
+        "ACTIVIDADES DE LIDERAZGO: Participa en el Consejo Estudiantil o comités académicos. Tu perspectiva positiva puede influir en mejoras para toda la comunidad universitaria.",
+        "TESTIMONIOS INSPIRADORES: Comparte tu experiencia positiva en eventos de orientación para nuevos estudiantes. Centro de Comunicación busca historias estudiantiles exitosas.",
+        "RECONOCIMIENTOS: Postúlate a programas de reconocimiento como 'Estudiante del Mes' o 'Orgullo Universitario'. Tu actitud positiva merece ser destacada institucionalmente.",
+        "MENTORING: Considera ser mentor de estudiantes de primer semestre. Tu experiencia positiva puede ayudar a otros a adaptarse mejor a la vida universitaria."
     ],
     "negativo": [
-        "😌 MANEJO DEL ESTRÉS: Contacta al Centro de Bienestar Estudiantil para técnicas de manejo de estrés académico. Psic. María González ofrece talleres gratuitos de relajación martes y jueves 3-4 PM.",
-        "🎯 CAMBIO DE ESTRATEGIA: Programa cita con tu Coordinador Académico para evaluar carga de materias y encontrar alternativas. A veces reducir materias mejora el rendimiento general.",
-        "👥 GRUPOS DE APOYO: Únete al Círculo de Apoyo Estudiantil que se reúne viernes 4 PM en el aula 102. Compartir experiencias con otros estudiantes alivia la presión académica.",
-        "⏰ GESTIÓN DEL TIEMPO: Taller 'Organización Académica Efectiva' del Centro de Desarrollo Estudiantil, sábados 10 AM. Aprende técnicas para distribuir mejor tu carga de trabajo.",
-        "🧘 TÉCNICAS DE RELAJACIÓN: App institucional 'Mindfulness UNRC' con meditaciones guiadas de 5-15 min. También yoga estudiantil gratuito en el gimnasio universitario."
+        "MANEJO DEL ESTRÉS: Contacta al Centro de Bienestar Estudiantil para técnicas de manejo de estrés académico. Psic. María González ofrece talleres gratuitos de relajación martes y jueves 3-4 PM.",
+        "CAMBIO DE ESTRATEGIA: Programa cita con tu Coordinador Académico para evaluar carga de materias y encontrar alternativas. A veces reducir materias mejora el rendimiento general.",
+        "GRUPOS DE APOYO: Únete al Círculo de Apoyo Estudiantil que se reúne viernes 4 PM en el aula 102. Compartir experiencias con otros estudiantes alivia la presión académica.",
+        "GESTIÓN DEL TIEMPO: Taller 'Organización Académica Efectiva' del Centro de Desarrollo Estudiantil, sábados 10 AM. Aprende técnicas para distribuir mejor tu carga de trabajo.",
+        "TÉCNICAS DE RELAJACIÓN: App institucional 'Mindfulness UNRC' con meditaciones guiadas de 5-15 min. También yoga estudiantil gratuito en el gimnasio universitario."
     ]
 }
 
@@ -201,7 +209,9 @@ def clasificar():
         
         palabras_negativas_generales = [
             "difícil", "complicado", "no entiendo", "frustra", "estresado", "abrumado",
-            "batallando", "no me sale", "me cuesta", "desespera", "fastidio", "aburrido"
+            "batallando", "no me sale", "me cuesta", "desespera", "fastidio", "aburrido",
+            "reprobando", "reprobé", "repruebo", "calificaciones bajas", "malas notas",
+            "fracasando", "fallando", "perdiendo materias", "mal en el examen", "muy mal"
         ]
         
         # Frases completas que indican positividad clara
@@ -211,36 +221,62 @@ def clasificar():
             "me gusta mi carrera", "estoy feliz estudiando", "me motiva estudiar"
         ]
         
+        # Frases que SIEMPRE deben ser clasificadas como negativas
+        frases_muy_negativas = [
+            "estoy reprobando", "reprobé", "tengo malas notas", "saqué malas calificaciones",
+            "me fue mal", "estoy fracasando", "no puedo aprobar", "perdí la materia",
+            "tengo calificaciones bajas", "voy mal en", "me está yendo mal",
+            "no logro aprobar", "siempre repruebo", "no paso las materias"
+        ]
+        
         # Clasificación por ML primero
         X_test = vectorizer.transform([texto])
         pred = model.predict(X_test)[0]
         probabilidades = model.predict_proba(X_test)[0]
         confianza = max(probabilidades)
         
-        # Sistema de corrección inteligente
+        # Sistema de corrección inteligente con PRIORIDADES CLARAS
         
-        # 1. Verificar frases explícitamente positivas
-        if any(frase in texto for frase in frases_muy_positivas):
-            pred = "positivo"
-            confianza = 0.95
+        # PRIORIDAD 1: Frases explícitamente NEGATIVAS (máxima prioridad)
+        if any(frase in texto for frase in frases_muy_negativas):
+            pred = "negativo"
+            confianza = 0.98
+            print(f"DETECCIÓN NEGATIVA FORZADA: {texto}")
         
-        # 2. Contar indicadores en el texto
-        positivas = sum(1 for palabra in palabras_muy_positivas if palabra in texto)
-        desercion_palabras = sum(1 for palabra in palabras_desercion if palabra in texto)
-        negativas_generales = sum(1 for palabra in palabras_negativas_generales if palabra in texto)
-        
-        # 3. Lógica de corrección mejorada
-        if desercion_palabras > 0:
+        # PRIORIDAD 2: Verificar deserción
+        elif any(palabra in texto for palabra in palabras_desercion):
             pred = "desercion"
-            confianza = 0.90
-        elif positivas > 0 and desercion_palabras == 0:
-            if "escuela" in texto or "universidad" in texto or "estudiar" in texto:
-                pred = "positivo"
-                confianza = 0.88
-        elif negativas_generales > positivas and negativas_generales > 0 and desercion_palabras == 0:
-            if pred not in ["matematicas", "fisica", "quimica", "programacion"]:
-                pred = "negativo"
-                confianza = 0.85
+            confianza = 0.95
+            print(f"DETECCIÓN DESERCIÓN: {texto}")
+        
+        # PRIORIDAD 3: Verificar frases explícitamente positivas
+        elif any(frase in texto for frase in frases_muy_positivas):
+            pred = "positivo"
+            confianza = 0.93
+            print(f"DETECCIÓN POSITIVA: {texto}")
+            
+        # PRIORIDAD 4: Sistema de conteo y análisis
+        else:
+            # Contar indicadores en el texto
+            positivas = sum(1 for palabra in palabras_muy_positivas if palabra in texto)
+            desercion_palabras = sum(1 for palabra in palabras_desercion if palabra in texto)
+            negativas_generales = sum(1 for palabra in palabras_negativas_generales if palabra in texto)
+            
+            print(f"CONTEO - Positivas: {positivas}, Negativas: {negativas_generales}, Deserción: {desercion_palabras}")
+            
+            # Si hay más indicadores negativos que positivos
+            if negativas_generales > positivas and negativas_generales > 0:
+                if pred not in ["matematicas", "fisica", "quimica", "programacion"]:
+                    pred = "negativo"
+                    confianza = 0.87
+                    print(f"RECLASIFICACIÓN A NEGATIVO por conteo: {texto}")
+            
+            # Si hay palabras positivas claras sobre la escuela
+            elif positivas > 0 and ("escuela" in texto or "universidad" in texto or "estudiar" in texto):
+                if not any(neg in texto for neg in frases_muy_negativas):
+                    pred = "positivo"
+                    confianza = 0.85
+                    print(f"RECLASIFICACIÓN A POSITIVO: {texto}")
             
         # Elegir un consejo según categoría
         consejo = random.choice(consejos.get(pred, consejos["motivacion"]))
