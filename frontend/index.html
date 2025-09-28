@@ -95,19 +95,7 @@
       transform: scale(1.05);
     }
 
-    select {
-      margin-top: 15px;
-      padding: 8px 12px;
-      border-radius: 5px;
-      font-family: 'Inter', sans-serif;
-      font-size: clamp(12px, 3vw, 14px);
-      font-weight: 400;
-      max-width: 90vw;
-      background: #001122;
-      color: #00eaff;
-      border: 1px solid #00ff99;
-      letter-spacing: 0.01em;
-    }
+
 
     #texto, #respuesta, #consejo {
       margin-top: 15px;
@@ -186,12 +174,6 @@
         min-width: 140px;
       }
       
-      select {
-        padding: 12px 15px;
-        font-size: 16px;
-        margin-top: 20px;
-      }
-      
       #texto, #respuesta, #consejo {
         font-size: 1rem;
         line-height: 1.4;
@@ -233,9 +215,6 @@
   <p id="texto">Presiona el botón y habla</p>
 
   <button onclick="escuchar()">🎤 Habla con Alba</button>
-  <br>
-  <label for="voz">Selecciona voz: </label>
-  <select id="voz"></select>
 
   <p id="respuesta"></p>
   <p id="consejo"></p>
@@ -243,40 +222,69 @@
   <footer>Universidad Rosario Castellanos © 2025</footer>
 
   <script>
-    let voces = [];
-    let vozSeleccionada = null;
+    let vozGoogleEspaño = null;
 
-    function cargarVoces() {
-      voces = speechSynthesis.getVoices();
-      const select = document.getElementById("voz");
-      select.innerHTML = "";
-      voces.forEach((v, i) => {
-        let option = document.createElement("option");
-        option.value = i;
-        option.text = v.name + " (" + v.lang + ")";
-        select.appendChild(option);
-      });
-      if (voces.length > 0) {
-        vozSeleccionada = voces[0];
+    function cargarVozGoogle() {
+      const voces = speechSynthesis.getVoices();
+      
+      // Buscar específicamente la voz de Google en español de Estados Unidos
+      vozGoogleEspaño = voces.find(voz => 
+        voz.name.includes('Google') && 
+        (voz.lang === 'es-US' || voz.lang === 'es-MX' || voz.lang.startsWith('es'))
+      );
+      
+      // Si no encuentra Google, buscar cualquier voz en español de calidad
+      if (!vozGoogleEspaño) {
+        vozGoogleEspaño = voces.find(voz => 
+          voz.lang.startsWith('es') && 
+          (voz.name.includes('Microsoft') || voz.name.includes('Helena') || voz.name.includes('Paulina'))
+        );
       }
+      
+      // Fallback: primera voz en español disponible
+      if (!vozGoogleEspaño) {
+        vozGoogleEspaño = voces.find(voz => voz.lang.startsWith('es'));
+      }
+      
+      console.log('Voz seleccionada:', vozGoogleEspaño ? vozGoogleEspaño.name : 'Voz del sistema');
     }
 
-    speechSynthesis.onvoiceschanged = cargarVoces;
-
-    document.getElementById("voz").addEventListener("change", function() {
-      vozSeleccionada = voces[this.value];
-    });
+    // Cargar voces cuando estén disponibles
+    speechSynthesis.onvoiceschanged = cargarVozGoogle;
+    
+    // Cargar voces inmediatamente si ya están disponibles
+    if (speechSynthesis.getVoices().length > 0) {
+      cargarVozGoogle();
+    }
 
     function speak(text) {
       let utter = new SpeechSynthesisUtterance(text);
-      utter.lang = "es-ES";
-      if (vozSeleccionada) utter.voice = vozSeleccionada;
+      
+      // Configurar idioma específico para español de Estados Unidos
+      utter.lang = "es-US";
+      
+      // Usar la voz de Google si está disponible
+      if (vozGoogleEspaño) {
+        utter.voice = vozGoogleEspaño;
+      }
+      
+      // Configuración optimizada para mejor calidad
+      utter.rate = 0.9;    // Velocidad ligeramente más lenta para claridad
+      utter.pitch = 1.0;   // Tono normal
+      utter.volume = 1.0;  // Volumen máximo
+      
       speechSynthesis.speak(utter);
     }
 
     function escuchar() {
       const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
-      recognition.lang = "es-ES";
+      
+      // Configurar para español de Estados Unidos
+      recognition.lang = "es-US";
+      recognition.continuous = false;
+      recognition.interimResults = false;
+      recognition.maxAlternatives = 1;
+      
       recognition.start();
 
       recognition.onresult = function(event) {
