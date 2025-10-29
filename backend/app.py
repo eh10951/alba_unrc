@@ -26,15 +26,7 @@ textos_matematicas = [
     "ayuda con cálculo", "problemas con matemáticas", "dificultades en estadística"
 ]
 
-textos_fisica = [
-    "no entiendo la mecánica", "problemas con fuerzas", "cinemática es difícil",
-    "ayuda con física", "problemas de física", "no entiendo física"
-]
 
-textos_quimica = [
-    "tabla periódica", "enlaces químicos", "reacciones químicas",
-    "ayuda con química", "problemas de química", "no entiendo química"
-]
 
 textos_programacion = [
     "aprender a programar", "algoritmos difíciles", "estructuras de datos",
@@ -105,13 +97,10 @@ textos_negativos = [
 ]
 
 # Combinar todos los textos
-todos_los_textos = (textos_matematicas + textos_fisica + textos_quimica + 
-                   textos_programacion + textos_desercion + textos_motivacion + 
+todos_los_textos = (textos_matematicas + textos_programacion + textos_desercion + textos_motivacion + 
                    textos_positivos_escuela + textos_negativos)
 
 todas_las_etiquetas = (["matematicas"] * len(textos_matematicas) +
-                      ["fisica"] * len(textos_fisica) +
-                      ["quimica"] * len(textos_quimica) +
                       ["programacion"] * len(textos_programacion) +
                       ["desercion"] * len(textos_desercion) +
                       ["motivacion"] * len(textos_motivacion) +
@@ -131,60 +120,51 @@ print(f"Modelo entrenado con {len(todos_los_textos)} ejemplos y {len(set(y))} ca
 # Consejos profesionales con recursos específicos
 consejos = {
     "matematicas": [
-        "CURSOS RECOMENDADOS: Inscríbete en el curso 'Fundamentos de Álgebra' de Khan Academy (gratuito) y 'Cálculo Diferencial' en Coursera por Universidad UNAM. Contacta al Tutor de Matemáticas del Centro de Apoyo Académico de tu universidad.",
-        "APOYO PERSONALIZADO: Solicita tutoría con estudiantes de Ingeniería de semestres avanzados (programa peer tutoring). El Dr. Luis García del Departamento de Matemáticas ofrece asesorías los martes y jueves de 2-4 PM.",
-        "RECURSOS DIGITALES: Usa Wolfram Alpha para verificar cálculos y Photomath para resolver paso a paso. El libro 'Álgebra de Baldor' está disponible gratis en la biblioteca digital universitaria.",
-        "PLAN DE ESTUDIO: Practica 30 min diarios con ejercicios graduales. Únete al Círculo de Estudio de Matemáticas que se reúne miércoles 4 PM en el aula 205. Profesora María Rodríguez coordina.",
-        "CERTIFICACIÓN: Considera el curso 'Matemáticas para Ciencias' del Tecnológico de Monterrey en edX (con certificado). Te dará una base sólida y reconocimiento académico adicional."
+        "Cursos recomendados: 'Matemáticas para Ingenierías' y 'Cálculo y Álgebra' en Udemy; muchos son con ejercicios prácticos y certificados.",
+        "YouTube: Khan Academy (Español) y JulioProfe para explicaciones paso a paso y ejercicios resueltos.",
+        "Pide ayuda: Asiste a horarios de profesor, solicita sesiones de tutoría en el centro de apoyo académico y forma grupos de estudio con compañeros.",
+        "Herramientas prácticas: usa GeoGebra, WolframAlpha o Symbolab para comprobar procesos y practicar paso a paso.",
+        "Rutina de práctica: resuelve problemas todos los días 30–60 min, empieza por ejercicios básicos y aumenta dificultad progresivamente."
     ],
-    "fisica": [
-        "LABORATORIOS ESPECIALIZADOS: Solicita acceso al Laboratorio de Física Básica fuera de horario de clase. El Ing. Roberto Martínez (Ext. 3421) coordina sesiones prácticas adicionales sábados 9-12.",
-        "CURSOS COMPLEMENTARIOS: 'Física Universitaria' de UC Berkeley en edX y 'Mecánica Clásica' de MIT OpenCourseWare. Para refuerzo presencial, el Círculo de Física se reúne viernes 3 PM.",
-        "RECURSOS AUDIOVISUALES: Canal de YouTube 'MinutoDeFísica' y simuladores PhET de Universidad de Colorado. La Dra. Ana López ofrece tutorías personalizadas lunes y miércoles 1-3 PM.",
-        "APOYO ACADÉMICO: El programa 'Nivelación en Ciencias Exactas' del Departamento de Física ofrece cursos remediales gratuitos. Inscripciones en Servicios Escolares.",
-        "PROYECTO APLICADO: Únete al Grupo de Divulgación Científica dirigido por el Dr. Carlos Hernández. Aplicar física en proyectos reales mejora comprensión y currículum."
-    ],
-    "quimica": [
-        "LABORATORIO ABIERTO: El Laboratorio de Química General ofrece sesiones libres sábados 10-1 PM. Contacta a la Q.F.B. Patricia Morales (Ext. 2890) para reservar equipo especializado.",
-        "CURSOS PROFESIONALES: 'Química General' de Universidad de Kentucky en Coursera y 'Organic Chemistry' de Yale (gratuito). Para apoyo presencial, Dr. Miguel Ángel Sánchez, cubículo 12B.",
-        "SOFTWARE ESPECIALIZADO: Aprende ChemSketch (gratis) y MarvinSketch para estructura molecular. Centro de Cómputo ofrece taller 'Química Computacional' cada mes.",
-        "GRUPOS DE ESTUDIO: Círculo de Química Orgánica dirigido por estudiantes de Ingeniería Química, jueves 5 PM, aula 108. Resuelven problemas complejos en equipo.",
-        "VINCULACIÓN INDUSTRIAL: Participa en visitas a plantas químicas organizadas por Vinculación Universitaria. Observar procesos reales consolida conocimiento teórico."
-    ],
+
     "programacion": [
-        "CERTIFICACIONES PROFESIONALES: Google IT Automation with Python (Coursera), Microsoft Azure Fundamentals y AWS Cloud Practitioner (gratuitas para estudiantes). Centro de Vinculación Laboral te apoya.",
-        "MENTORES ESPECIALIZADOS: Contacta a egresados en el programa Alumni Mentorship. El Ing. Fernando López (Google México) ofrece mentoría virtual mensual para estudiantes destacados.",
-        "PROYECTOS COLABORATIVOS: Únete a los capítulos estudiantiles ACM e IEEE. Participan en hackathons y tienen biblioteca especializada en el edificio de Ingeniería.",
-        "CURSOS AVANZADOS: 'CS50 Introduction to Computer Science' de Harvard (gratis), 'Python for Data Science' de IBM. El Centro de Cómputo ofrece cursos presenciales.",
-        "PRÁCTICAS PROFESIONALES: Programa de Internships con empresas tech locales. Oficina de Prácticas Profesionales coordina con Microsoft, IBM y startups locales."
+        "Cursos recomendados: 'Complete Python Bootcamp' (Jose Portilla, Udemy) o cursos de algoritmos y estructuras en Udemy/Platzi.",
+        "YouTube: freeCodeCamp.org, Traversy Media y canales en español con proyectos prácticos para ver código real.",
+        "Pide ayuda: pregunta en horas de oficina del docente, solicita revisiones de código y participa en talleres de laboratorio.",
+        "Practica con proyectos: sube ejercicios a GitHub, haz pequeños proyectos (to-do, API, web scraper) y busca feedback en comunidades.",
+        "Recursos de depuración: aprende a usar un debugger, lee errores con calma y usa Stack Overflow y foros estudiantiles para dudas concretas."
     ],
+
     "desercion": [
-        "URGENTE - BIENESTAR ESTUDIANTIL: Contacta HOY al Departamento de Bienestar Estudiantil (Ext. 2500, edificio administrativo 2do piso). Psic. Laura Jiménez especializada en crisis académicas.",
-        "ASESORÍA ACADÉMICA INMEDIATA: Tu Coordinador Académico puede evaluar opciones: baja temporal, reducción de materias, cambio de modalidad. Agenda cita en Servicios Escolares.",
-        "APOYO FINANCIERO: Programa de Becas de Emergencia y trabajo-estudio disponible. Lic. Carmen Flores (Oficina de Becas) evalúa casos especiales. También crédito educativo FONACOT.",
-        "ORIENTACIÓN VOCACIONAL: Centro de Orientación puede aplicar test vocacional y de intereses (gratuito). Confirma si tu carrera actual se alinea con tus aptitudes reales.",
-        "LÍNEA DE APOYO 24/7: Universidad cuenta con línea de crisis estudiantil: 800-APOYO-U. También grupo de WhatsApp 'Red de Apoyo Estudiantil' moderado por Trabajo Social."
+        "Comunícate YA con Bienestar Estudiantil o el orientador académico de tu facultad para evaluar opciones (reducción de carga, baja temporal, apoyo psicológico).",
+        "Habla con tus profesores y coordinador de carrera: pueden ofrecer adaptaciones, plazos extra o alternativas de evaluación.",
+        "Busca apoyo financiero: oficina de becas, programas de ayuda de la universidad o trabajo académico temporal para aliviar presión económica.",
+        "Apoyo emocional: agenda consulta con el servicio de psicología universitaria; muchos ofrecen atención y estrategias para crisis.",
+        "Plan concreto: arma un plan de 4–8 semanas con metas pequeñas (menos materias, tutorías, descanso) y revisa progresos con un tutor o mentor."
     ],
+
     "motivacion": [
-        "PROGRAMA DE EXCELENCIA: Inscríbete en el Programa de Estudiantes Sobresalientes que ofrece mentorías, conferencias exclusivas y networking con profesionales exitosos.",
-        "DESARROLLO DE HABILIDADES: Curso 'Técnicas de Estudio Avanzadas' del Centro de Desarrollo Estudiantil. También taller 'Liderazgo Universitario' con reconocimiento curricular.",
-        "SOCIEDADES ACADÉMICAS: Únete al Consejo Estudiantil o sociedad de alumnos de tu carrera. Liderazgo estudiantil desarrolla competencias valoradas por empleadores.",
-        "COACHING ACADÉMICO: Programa de coaching personalizado con egresados exitosos. 6 sesiones gratuitas enfocadas en metas académicas y desarrollo profesional.",
-        "OPORTUNIDADES ESPECIALES: Postúlate a programas de intercambio, concursos académicos y proyectos de investigación con profesores. Fortalecen perfil académico significativamente."
+        "Técnica práctica: usa Pomodoro (25/5) y objetivos pequeños diarios; mide progreso semanal para mantener motivación.",
+        "Cursos y vídeos cortos: busca playlists de técnicas de estudio en YouTube y cursos de productividad en Udemy.",
+        "Pide apoyo: establece reuniones cortas con un tutor o compañero para rendición de cuentas y revisión de metas.",
+        "Organización: usa Notion/Trello para planificar tareas y exámenes; prioriza lo urgente/importante y divide tareas grandes.",
+        "Refuerzo positivo: celebra pequeñas victorias, registra avances y ajusta objetivos si algo no funciona."
     ],
+
     "positivo": [
-        "EMBAJADOR ESTUDIANTIL: Con tu actitud positiva, considera ser Embajador Estudiantil para orientar a nuevos estudiantes. Programa coordinado por Relaciones Estudiantiles.",
-        "ACTIVIDADES DE LIDERAZGO: Participa en el Consejo Estudiantil o comités académicos. Tu perspectiva positiva puede influir en mejoras para toda la comunidad universitaria.",
-        "TESTIMONIOS INSPIRADORES: Comparte tu experiencia positiva en eventos de orientación para nuevos estudiantes. Centro de Comunicación busca historias estudiantiles exitosas.",
-        "RECONOCIMIENTOS: Postúlate a programas de reconocimiento como 'Estudiante del Mes' o 'Orgullo Universitario'. Tu actitud positiva merece ser destacada institucionalmente.",
-        "MENTORING: Considera ser mentor de estudiantes de primer semestre. Tu experiencia positiva puede ayudar a otros a adaptarse mejor a la vida universitaria."
+        "Comparte tu experiencia: ofrece mentoría a nuevos alumnos o participa en actividades de orientación estudiantil.",
+        "Sigue aprendiendo: aprovecha cursos avanzados en Udemy/YouTube para profundizar y convertir tu entusiasmo en habilidades.",
+        "Liderazgo: participa en grupos estudiantiles o proyectos; son buena forma de potenciar CV y redes académicas.",
+        "Da feedback constructivo a la facultad sobre lo que funciona para ti para mejorar el entorno de estudio.",
+        "Sé referente: ofrece sesiones de repaso informales para compañeros y documenta recursos útiles en un repositorio compartido."
     ],
+
     "negativo": [
-        "MANEJO DEL ESTRÉS: Contacta al Centro de Bienestar Estudiantil para técnicas de manejo de estrés académico. Psic. María González ofrece talleres gratuitos de relajación martes y jueves 3-4 PM.",
-        "CAMBIO DE ESTRATEGIA: Programa cita con tu Coordinador Académico para evaluar carga de materias y encontrar alternativas. A veces reducir materias mejora el rendimiento general.",
-        "GRUPOS DE APOYO: Únete al Círculo de Apoyo Estudiantil que se reúne viernes 4 PM en el aula 102. Compartir experiencias con otros estudiantes alivia la presión académica.",
-        "GESTIÓN DEL TIEMPO: Taller 'Organización Académica Efectiva' del Centro de Desarrollo Estudiantil, sábados 10 AM. Aprende técnicas para distribuir mejor tu carga de trabajo.",
-        "TÉCNICAS DE RELAJACIÓN: App institucional 'Mindfulness UNRC' con meditaciones guiadas de 5-15 min. También yoga estudiantil gratuito en el gimnasio universitario."
+        "Salud mental y manejo de estrés: agenda atención con psicología universitaria y aprende técnicas básicas de respiración/mindfulness.",
+        "Habla con tus profesores: pide retroalimentación concreta sobre cómo mejorar y solicita alternativas (entregas, apoyo, ejercicios extras).",
+        "Organiza tiempo y prioridades: reduce carga si es necesario, aplica un calendario semanal y evita intentar todo al mismo tiempo.",
+        "Tutorización: solicita tutorías o clases particulares para los temas más débiles; muchos campus ofrecen apoyo gratuito.",
+        "Pequeños pasos: identifica 1–2 acciones inmediatas (pedir cita con tutor, completar 1 ejercicio difícil, dormir mejor) y repítelas hasta mejorar."
     ]
 }
 
@@ -283,14 +263,12 @@ def clasificar():
         
         # Respuesta más natural
         respuestas_naturales = {
-            "matematicas": "Veo que necesitas ayuda con matemáticas",
-            "fisica": "Identifico una consulta sobre física", 
-            "quimica": "Detecto que tienes dudas de química",
-            "programacion": "Reconozco una pregunta sobre programación",
-            "desercion": "Noto que estás pasando por un momento muy difícil y considerando dejar los estudios",
-            "motivacion": "¡Qué bueno verte buscando motivación para mejorar en tus estudios!",
-            "positivo": "¡Me alegra mucho escuchar comentarios tan positivos sobre la escuela!",
-            "negativo": "Entiendo que estás pasando por una situación estresante o frustrante con tus estudios"
+            "matematicas": "Puedo aconsejar materiales de estudio y ofrecer consejos sobre ejercicios y recursos para practicar matemáticas.",
+            "programacion": "Puedo aconsejar materiales de estudio y sugerir recursos y ejemplos para practicar programación y depuración.",
+            "desercion": "Puedo aconsejar recursos y pasos a considerar (orientación estudiantil, apoyo emocional, opciones administrativas) y ofrecer consejos prácticos.",
+            "motivacion": "Puedo aconsejar técnicas y materiales para mejorar la motivación (técnicas de estudio, rutinas, recursos de seguimiento).",
+            "positivo": "Puedo aconsejar actividades y materiales para aprovechar el interés por el estudio (proyectos, cursos, lecturas recomendadas).",
+            "negativo": "Puedo aconsejar recursos y acciones concretas (tutorías, organización, gestión del estrés) para mejorar la situación académica."
         }
         
         respuesta = respuestas_naturales.get(pred, f"He identificado tu consulta sobre: {pred}")
