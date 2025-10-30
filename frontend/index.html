@@ -3,223 +3,185 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Asistente Escolar UNRC</title>
-  <!-- Google Fonts - Tipografías profesionales -->
+  <title>Asistente Escolar Alba - Modelo ML</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;600;700&family=Orbitron:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <style>
-    body {
-      margin: 0;
-      min-height: 100vh;
-      padding: 20px;
-      box-sizing: border-box;
-      background: radial-gradient(circle at center, #0a0f1f, #000);
-      color: #00eaff;
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-      font-weight: 400;
-      line-height: 1.6;
-      letter-spacing: 0.01em;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
+    :root{
+      --bg:#0b0c10;
+      --bg-deep:#07080c;
+      --neon-1:#00ffaa;
+      --neon-2:#00ffbf;
+      --turquoise:#00eaff;
+      --violet:#9b5cff;
+      --white:#ffffff;
+      --muted:#c7d2e1;
+      --chip:#00ffbf44;
+      --radius:20px;
+      --panel: rgba(18, 22, 33, 0.7);
+      --shadow-neon: 0 0 18px rgba(0,255,170,0.3), 0 0 26px rgba(0,255,191,0.2);
+      --shadow-soft: 0 12px 32px rgba(0,0,0,0.35);
     }
 
-    h1 {
-      margin-bottom: 20px;
-      font-size: clamp(1.5rem, 5vw, 2rem);
-      font-family: 'Poppins', sans-serif;
-      font-weight: 600;
-      color: #00ff99;
-      text-shadow: 0 0 8px #00ff99, 0 0 15px rgba(0,255,153,0.6);
-      letter-spacing: -0.02em;
-      line-height: 1.2;
+    html, body{ margin:0; padding:0; min-height:100vh; color:var(--white); font-family:'Inter', 'Poppins', 'Orbitron', system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, sans-serif; }
+    body{
+      background:
+        radial-gradient(1000px 700px at 10% 10%, rgba(0,255,191,0.12), transparent 60%),
+        radial-gradient(900px 600px at 90% 20%, rgba(0,234,255,0.12), transparent 60%),
+        linear-gradient(180deg, var(--bg), var(--bg-deep));
     }
 
-    /* Contenedor de la mascota estilo Jarvis - Responsive */
-    .jarvis-core {
-      width: min(280px, 80vw);
-      height: min(280px, 80vw);
-      max-width: 280px;
-      max-height: 280px;
-      border-radius: 50%;
-      background: transparent;
-      border: 4px solid #00ff99;
-      box-shadow: 0 0 30px #00ff99, 0 0 15px #00ff99;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      margin-bottom: 20px;
-      animation: pulse 2s infinite alternate;
-      overflow: hidden;
-    }
+    .topbar{ position:fixed; top:0; left:0; right:0; padding:12px 20px; display:flex; justify-content:flex-start; align-items:center; gap:12px; background: linear-gradient(180deg, rgba(0,0,0,0.35), rgba(0,0,0,0)); backdrop-filter: blur(6px); z-index:10; border-bottom: 1px solid rgba(0,255,191,0.08); }
+    .btn-back{ color: var(--neon-2); border: 2px solid var(--neon-2); border-radius:999px; padding:8px 12px; text-decoration:none; font-weight:600; box-shadow: inset 0 0 12px rgba(0,255,191,0.15); }
+    .btn-back:hover{ filter: brightness(1.2); }
 
-    .mascota {
-      width: 95%;
-      height: 95%;
-      object-fit: cover;
-      border-radius: 50%;
-    }
+    .container{ max-width:1180px; margin: 0 auto; padding: 86px 22px 28px; }
 
-    @keyframes pulse {
-      from { transform: scale(1); opacity: 0.8; }
-      to { transform: scale(1.1); opacity: 1; }
-    }
+    .header{ text-align:center; margin-bottom: 16px; }
+    .title{ font-family:'Poppins',sans-serif; font-weight:700; font-size: clamp(1.8rem, 5vw, 2.8rem); color: var(--neon-1); text-shadow: 0 0 14px rgba(0,255,170,0.6), 0 0 28px rgba(0,255,191,0.35); margin: 0; }
+    .subtitle{ margin-top:8px; color: rgba(255,255,255,0.78); }
 
-    button {
-      background: #00ff99;
-      color: #000;
-      border: none;
-      padding: 12px 25px;
-      font-family: 'Inter', sans-serif;
-      font-size: clamp(14px, 4vw, 16px);
-      font-weight: 500;
-      border-radius: 30px;
-      cursor: pointer;
-      margin: 10px 5px;
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      min-width: 120px;
-      touch-action: manipulation;
-      letter-spacing: 0.025em;
-      text-transform: uppercase;
-      font-size: clamp(12px, 3.5vw, 14px);
-    }
+    .mascota-wrap{ display:flex; justify-content:center; margin: 16px 0 10px; }
+    .jarvis-core{ width:200px; height:200px; border-radius:50%; border: 3px solid var(--neon-1); box-shadow: 0 0 28px rgba(0,255,170,0.35), 0 0 16px rgba(0,255,170,0.45) inset; display:flex; align-items:center; justify-content:center; background: radial-gradient(circle at 50% 50%, rgba(0,255,170,0.08), transparent 60%); animation: halo 3s ease-in-out infinite alternate; overflow:hidden; }
+    .mascota{ width:92%; height:92%; object-fit:cover; border-radius:50%; }
+    @keyframes halo{ from{ transform: scale(1);} to{ transform: scale(1.04);} }
 
-    button:hover, button:active {
-      background: #00cc7a;
-      color: #fff;
-      transform: scale(1.05);
-    }
+    .cards{ display:grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap:18px; margin: 20px 0 10px; }
+    .card{ background: var(--panel); border-radius: var(--radius); border: 1px solid rgba(0,255,191,0.14); box-shadow: var(--shadow-soft); padding: 18px 16px; transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease; }
+    .card:hover{ transform: translateY(-5px); border-color: rgba(0,255,170,0.35); box-shadow: var(--shadow-soft), var(--shadow-neon); }
+    .card .icon{ font-size:28px; margin-bottom:8px; display:inline-block; }
+    .card h3{ margin: 8px 0 6px; color: var(--neon-2); font-family:'Poppins',sans-serif; }
+    .card p{ margin:0; color: rgba(255,255,255,0.82); }
+    .ico-brain{ color:#ff6ad5; text-shadow: 0 0 14px rgba(255,106,213,0.6); }
+    .ico-chart{ color:#4dddf7; text-shadow: 0 0 14px rgba(77,221,247,0.6); }
+    .ico-mic{ color:#b38cff; text-shadow: 0 0 14px rgba(179,140,255,0.6); }
 
+    .stats{ display:grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap:14px; margin: 10px 0 16px; }
+    .stat{ background: rgba(0,0,0,0.35); border:1px solid rgba(0,255,191,0.14); border-radius: 14px; padding: 14px; text-align:center; box-shadow: inset 0 0 18px rgba(0,255,191,0.1); }
+    .stat .num{ font-family:'Orbitron', monospace; font-size: 1.6rem; color: var(--neon-2); text-shadow: 0 0 12px rgba(0,255,191,0.5); }
+    .stat .label{ color: var(--muted); }
 
+    .panel{ background: var(--panel); border:1px solid rgba(0,255,191,0.14); border-radius: var(--radius); box-shadow: var(--shadow-soft); padding: 18px; }
+    .panel h4{ margin: 0 0 10px; color: var(--neon-1); text-shadow: 0 0 10px rgba(0,255,170,0.45); font-family:'Poppins',sans-serif; }
+    .textarea{ width:100%; min-height: 110px; padding:14px; border-radius: 16px; border: 1px solid rgba(0,255,170,0.6); background: rgba(5,12,24,0.45); color: var(--white); box-shadow: 0 0 14px rgba(0,255,170,0.22) inset, 0 0 12px rgba(0,255,170,0.14); resize: vertical; }
+    .textarea:focus{ outline:none; box-shadow: 0 0 18px rgba(0,255,170,0.45), inset 0 0 16px rgba(0,255,170,0.28); }
 
-    #texto, #respuesta, #consejo {
-      margin-top: 15px;
-      font-family: 'Inter', sans-serif;
-      font-size: clamp(0.9rem, 3vw, 1.1rem);
-      font-weight: 400;
-      line-height: 1.7;
-      max-width: 90vw;
-      word-wrap: break-word;
-      padding: 0 10px;
-      letter-spacing: 0.01em;
-    }
+    .chips{ display:flex; flex-wrap:wrap; gap:8px; margin: 10px 0 6px; }
+    .chip{ padding:6px 12px; border-radius:999px; border:1px solid var(--neon-2); color: var(--neon-2); background: transparent; cursor:pointer; font-weight:600; }
+    .chip:hover{ filter: brightness(1.2); box-shadow: 0 0 12px rgba(0,255,191,0.25); }
 
-    /* Estilos específicos para respuestas y consejos profesionales */
-    #respuesta {
-      background: rgba(0, 234, 255, 0.1);
-      border-left: 3px solid #00eaff;
-      padding: 15px 20px;
-      border-radius: 8px;
-      margin: 20px 0;
-      font-weight: 400;
-      backdrop-filter: blur(10px);
-    }
+    .actions{ display:flex; flex-wrap: wrap; gap:10px; margin-top: 10px; }
+    .btn{ appearance:none; border:0; outline:0; border-radius: 999px; padding: 12px 18px; font-weight:700; cursor:pointer; transition: transform .08s ease, filter .18s ease; }
+    .btn:active{ transform: translateY(1px); }
+    .btn.primary{ background: linear-gradient(135deg, var(--neon-1), var(--neon-2)); color:#06110b; box-shadow: 0 0 18px rgba(0,255,170,0.35), 0 0 14px rgba(0,255,191,0.25); }
+    .btn.voice{ background: linear-gradient(135deg, #3ac7ff, #8ad2ff); color:#02060a; box-shadow: 0 0 16px rgba(58,199,255,0.28); }
+    .btn.clear{ background: linear-gradient(135deg, #ff4b4b, #ff7b7b); color:#2b0000; box-shadow: 0 0 14px rgba(255,75,75,0.22); }
 
-    #consejo {
-      background: rgba(0, 255, 153, 0.1);
-      border-left: 3px solid #00ff99;
-      padding: 15px 20px;
-      border-radius: 8px;
-      margin: 20px 0;
-      font-weight: 400;
-      backdrop-filter: blur(10px);
-    }
+    .results{ margin-top: 14px; display:none; }
+    .result-item{ background: rgba(0, 234, 255, 0.07); border-left: 4px solid var(--turquoise); padding: 14px; border-radius: 12px; margin: 10px 0; box-shadow: inset 0 0 22px rgba(0,234,255,0.12); }
+    .badge{ display:inline-block; background: var(--neon-1); color:#06110b; border-radius: 999px; padding: 5px 12px; font-size: .84rem; font-weight:800; }
+    .confidence-bar{ height: 10px; width: 100%; background: rgba(255,255,255,0.15); border-radius: 999px; overflow:hidden; margin-top: 8px; }
+    .confidence-progress{ height:100%; background: linear-gradient(90deg, var(--neon-1), var(--neon-2)); width:0%; transition: width .9s ease; box-shadow: 0 0 16px rgba(0,255,170,0.35); }
 
-    /* Mejorar el estilo del texto reconocido */
-    #texto {
-      font-family: 'JetBrains Mono', monospace;
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(0, 234, 255, 0.3);
-      padding: 12px 16px;
-      border-radius: 6px;
-      font-size: clamp(0.85rem, 2.8vw, 1rem);
-      color: #ffffff;
-      letter-spacing: 0.02em;
-    }
+    .details{ margin: 18px 0 10px; background: var(--panel); border: 1px solid rgba(0,255,191,0.18); border-radius: var(--radius); box-shadow: var(--shadow-soft); padding: 18px; }
+    .details h4{ color: var(--turquoise); text-shadow: 0 0 10px rgba(0,234,255,0.45); font-family:'Poppins',sans-serif; margin:0 0 8px; }
+    .details ul{ margin: 8px 0 0 18px; }
+    .details li{ margin: 6px 0; color: rgba(255,255,255,0.86); }
+    .details small{ color: var(--muted); }
 
-    footer {
-      margin-top: 30px;
-      font-family: 'Inter', sans-serif;
-      font-size: clamp(0.7rem, 2.5vw, 0.9rem);
-      font-weight: 300;
-      color: #aaa;
-      text-align: center;
-      padding: 10px;
-      letter-spacing: 0.02em;
-      line-height: 1.5;
-    }
+    footer{ margin-top: 18px; color: rgba(255,255,255,0.6); text-align:center; font-size: .9rem; }
 
-    /* Estilos específicos para móviles */
-    @media (max-width: 768px) {
-      body {
-        padding: 10px;
-        min-height: 100vh;
-      }
-      
-      .jarvis-core {
-        width: min(220px, 70vw);
-        height: min(220px, 70vw);
-        margin-bottom: 15px;
-      }
-      
-      button {
-        padding: 15px 20px;
-        font-size: 16px;
-        margin: 8px 3px;
-        min-width: 140px;
-      }
-      
-      #texto, #respuesta, #consejo {
-        font-size: 1rem;
-        line-height: 1.4;
-        margin-top: 20px;
-      }
-      
-      h1 {
-        font-size: 1.8rem;
-        margin-bottom: 15px;
-      }
-    }
-
-    /* Estilos para pantallas muy pequeñas */
-    @media (max-width: 480px) {
-      .jarvis-core {
-        width: min(180px, 60vw);
-        height: min(180px, 60vw);
-      }
-      
-      h1 {
-        font-size: 1.5rem;
-      }
-      
-      #respuesta, #consejo {
-        padding: 0 5px;
-        font-size: 0.9rem;
-      }
-    }
+    @media (max-width: 860px){ .container{ padding-top: 78px; } }
   </style>
 </head>
 <body>
-  <h1>Asistente Escolar Alba</h1>
-
-  <!-- Mascota UNRC -->
-  <div class="jarvis-core">
-    <img src="mascota.jpeg" alt="Mascota UNRC" class="mascota">
+  <div class="topbar">
+    <a href="/" class="btn-back"><i class="fas fa-arrow-left"></i> Volver al inicio</a>
   </div>
 
-  <p id="texto">Presiona el botón y habla</p>
+  <div class="container">
+    <header class="header">
+      <h1 class="title">Asistente Escolar Alba - Modelo ML</h1>
+      <p class="subtitle">Interfaz educativa con estética IA, neón verde/turquesa y asistencia académica</p>
+    </header>
 
-  <button onclick="escuchar()">🎤 Habla con Alba</button>
+    <div class="mascota-wrap">
+      <div class="jarvis-core">
+        <img src="mascota.jpeg" alt="Mascota UNRC" class="mascota">
+      </div>
+    </div>
 
-  <p id="respuesta"></p>
-  <p id="consejo"></p>
+    <section class="cards">
+      <div class="card">
+        <span class="icon ico-brain">💡</span>
+        <h3>Inteligencia Artificial Avanzada</h3>
+        <p>Clasificación de mensajes estudiantiles con recomendaciones.</p>
+      </div>
+      <div class="card">
+        <span class="icon ico-chart">📊</span>
+        <h3>8 Categorías de Análisis</h3>
+        <p>Resultados con categoría y confianza en tiempo real.</p>
+      </div>
+      <div class="card">
+        <span class="icon ico-mic">🎤</span>
+        <h3>Interacción por Voz</h3>
+        <p>Dicta tu comentario y deja que Alba lo analice por ti.</p>
+      </div>
+    </section>
 
-  <footer>Universidad Rosario Castellanos © 2025</footer>
+    <section class="stats">
+      <div class="stat"><div class="num">531</div><div class="label">ejemplos de entrenamiento</div></div>
+      <div class="stat"><div class="num">95%</div><div class="label">precisión aproximada</div></div>
+    </section>
+
+    <section class="panel">
+      <h4>💬 Escribe tu comentario estudiantil:</h4>
+      <textarea id="chat-input" class="textarea" placeholder="Escribe aquí tu comentario o pega texto para analizar con Alba..."></textarea>
+      <div class="chips">
+        <button class="chip" onclick="prefill('Tengo dudas y me siento desmotivado para seguir cursando.')">Deserción</button>
+        <button class="chip" onclick="prefill('Estoy muy contento con mi rendimiento en la materia.')">Positivo</button>
+        <button class="chip" onclick="prefill('Necesito motivación para preparar el final.')">Motivación</button>
+        <button class="chip" onclick="prefill('No entiendo un problema de programación en Python.')">Académico</button>
+      </div>
+      <div class="actions">
+        <button class="btn primary" onclick="analyzeChat()"><i class="fas fa-brain"></i> Analizar con IA</button>
+        <button class="btn voice" onclick="escuchar()"><i class="fas fa-microphone"></i> Habla con Alba</button>
+        <button class="btn clear" onclick="clearAll()"><i class="fas fa-eraser"></i> Limpiar</button>
+      </div>
+    </section>
+
+    <section id="results" class="results">
+      <div class="result-item">
+        <div><span class="badge" id="category">—</span></div>
+        <div style="margin-top:8px; display:flex; align-items:center; gap:8px;">
+          <div class="confidence-bar"><div id="confidenceProgress" class="confidence-progress"></div></div>
+          <span id="confidence">—</span>
+        </div>
+      </div>
+      <div class="result-item">
+        <strong>Interpretación</strong>
+        <div id="interpretation">—</div>
+      </div>
+      <div class="result-item">
+        <strong>Recomendación</strong>
+        <div id="advice">—</div>
+      </div>
+    </section>
+
+    <section class="details">
+      <h4>Detalles Técnicos del Modelo</h4>
+      <ul>
+        <li><small>Algoritmo:</small> SVM + TF-IDF</li>
+        <li><small>Datos:</small> 531 ejemplos de entrenamiento</li>
+        <li><small>Categorías:</small> 6 tipos de análisis</li>
+        <li><small>API:</small> Flask con respuestas en tiempo real (POST <code>/clasificar</code>)</li>
+      </ul>
+    </section>
+
+    <footer>Universidad Rosario Castellanos © 2025</footer>
+  </div>
 
   <script>
     let vozGoogleEspaño = null;
@@ -350,46 +312,64 @@
     }
 
     function escuchar() {
+      if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)){
+        alert('Tu navegador no soporta reconocimiento de voz. Usa Chrome o Edge.');
+        return;
+      }
       const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
-      
-      // Configurar para español de Estados Unidos
       recognition.lang = "es-US";
       recognition.continuous = false;
       recognition.interimResults = false;
       recognition.maxAlternatives = 1;
-      
       recognition.start();
-
       recognition.onresult = function(event) {
-        const comando = event.results[0][0].transcript.toLowerCase();
-        document.getElementById("texto").innerText = "Tú dijiste: " + comando;
-        
-        // Mostrar indicador de carga
-        document.getElementById("respuesta").innerHTML = "<strong>🔄 Analizando tu consulta...</strong>";
-        document.getElementById("consejo").innerHTML = "<em>Preparando recomendaciones profesionales...</em>";
-
-        // Enviar texto al backend Flask para clasificar
-        // URL dinámica que funciona en local y producción
-        const baseUrl = window.location.origin;
-        fetch(`${baseUrl}/clasificar`, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ texto: comando })
-        })
-        .then(res => res.json())
-        .then(data => {
-          document.getElementById("respuesta").innerText = data.respuesta;
-          document.getElementById("consejo").innerText = "Consejo: " + data.consejo;
-
-          // Leer con voz profesional
-          speak(data.respuesta + ". " + data.consejo);
-        })
-        .catch(err => {
-          console.error(err);
-          speak("Ocurrió un error al comunicarse con el servidor.");
-        });
+        const comando = event.results[0][0].transcript;
+        const input = document.getElementById('chat-input');
+        input.value = comando;
+        analyzeChat();
       }
     }
+
+    async function analyzeChat(){
+      const input = document.getElementById('chat-input');
+      const texto = (input.value || '').trim();
+      if (!texto){ input.focus(); return; }
+      try{
+        const res = await fetch(`${window.location.origin}/clasificar`,{
+          method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({texto})
+        });
+        const data = await res.json();
+        renderResults(data);
+        if (data && (data.respuesta || data.consejo)){
+          speak(`${data.respuesta || ''}. ${data.consejo || ''}`.trim());
+        }
+      }catch(err){ console.error(err); renderError('No se pudo conectar con el modelo.'); }
+    }
+
+    function prefill(text){ const input = document.getElementById('chat-input'); input.value = text; input.focus(); }
+
+    function renderResults(data){
+      const results = document.getElementById('results');
+      document.getElementById('category').textContent = data.categoria || '—';
+      const conf = typeof data.confianza === 'number' ? data.confianza : 0;
+      document.getElementById('confidence').textContent = `${Math.round(conf*100)}%`;
+      document.getElementById('confidenceProgress').style.width = `${Math.round(conf*100)}%`;
+      document.getElementById('interpretation').textContent = data.respuesta || '—';
+      document.getElementById('advice').textContent = data.consejo || '—';
+      results.style.display = 'block';
+    }
+
+    function renderError(message){
+      const results = document.getElementById('results');
+      document.getElementById('category').textContent = '—';
+      document.getElementById('confidence').textContent = '—';
+      document.getElementById('confidenceProgress').style.width = '0%';
+      document.getElementById('interpretation').textContent = 'No se pudo conectar con el modelo.';
+      document.getElementById('advice').textContent = `Detalles: ${message}`;
+      results.style.display = 'block';
+    }
+
+    function clearAll(){ const input = document.getElementById('chat-input'); input.value = ''; const results = document.getElementById('results'); results.style.display = 'none'; }
   </script>
 </body>
 </html>

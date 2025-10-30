@@ -1,0 +1,25 @@
+Crea una cuenta en Render: Ve a render.com y regístrate (usa GitHub para login rápido).
+
+Conecta tu repositorio GitHub:
+
+En el dashboard de Render, haz clic en "New" > "Web Service".
+Selecciona "Connect" y elige tu repo alba_unrc de GitHub.
+Render detectará automáticamente que es un proyecto Python.
+Configura el despliegue:
+
+Nombre del servicio: Pon algo como "my-ml-app".
+Entorno: Selecciona "Python 3".
+Build Command: Deja vacío o pon pip install -r requirements.txt (Render lo hace automáticamente si hay requirements.txt).
+Start Command: Pon python backend/app.py.
+Variables de entorno: Si necesitas algo (como PORT), Render lo maneja automáticamente. Tu app usa os.environ.get("PORT", 5000), que es perfecto para Render.
+Plan: Elige "Free" para empezar.
+Despliega:
+
+Haz clic en "Create Web Service". Render clonará tu repo, instalará dependencias y arrancará el servidor.
+Espera 5-10 minutos. Una vez listo, te dará una URL como https://my-ml-app.onrender.com.
+Tu frontend estará en la raíz (/), y el endpoint /clasificar funcionará.
+Verifica:
+
+Abre la URL en tu navegador: deberías ver tu página HTML con la mascota.
+Prueba el endpoint: Usa una herramienta como Postman o curl para enviar un POST a https://my-ml-app.onrender.com/clasificar con JSON {"texto": "me gusta estudiar"}.
+Si hay errores, revisa los logs en Render (pestaña "Logs").
