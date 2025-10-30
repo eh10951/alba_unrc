@@ -598,37 +598,41 @@ consejos = {
     ]
 }
 
+@app.route('/health')
+def health_check():
+    return jsonify({"status": "healthy", "model_trained": True})
+
 @app.route("/clasificar", methods=["POST"])
 def clasificar():
     try:
         logger.info("Recibiendo solicitud de clasificación")
-        
+
         # Validar que la solicitud tenga datos JSON
         if not request.is_json:
             logger.error("Solicitud sin JSON válido")
             return jsonify({
                 "error": "Content-Type debe ser application/json"
             }), 400
-            
+
         data = request.get_json()
         if not data:
             logger.error("Datos JSON vacíos")
             return jsonify({
                 "error": "No se recibieron datos"
             }), 400
-            
+
         # Obtener texto, validar diferentes nombres de campo
         texto = data.get("texto") or data.get("comentario") or data.get("message", "")
-        
+
         if not texto or not texto.strip():
             logger.error("Texto vacío recibido")
             return jsonify({
                 "error": "El campo 'texto' es requerido y no puede estar vacío"
             }), 400
-            
+
         texto = texto.lower().strip()
         logger.info(f"Procesando texto: {texto[:50]}...")
-        
+
         # Sistema de detección mejorado con palabras clave más precisas
         palabras_muy_positivas = [
             "me gusta", "me encanta", "amo", "disfruto", "genial", "bueno", "bien",
@@ -691,59 +695,66 @@ def clasificar():
             "soy un fracaso", "no sirvo para esto", "esto no es para mí",
             "me equivoqué de carrera", "esta carrera no me gusta", "odio esta materia"
         ]
-        
+
         # Clasificación por ML primero
-        X_test = vectorizer.transform([texto])
-        pred = model.predict(X_test)[0]
-        probabilidades = model.predict_proba(X_test)[0]
-        confianza = max(probabilidades)
-        
+        try:
+            X_test = vectorizer.transform([texto])
+            pred = model.predict(X_test)[0]
+            probabilidades = model.predict_proba(X_test)[0]
+            confianza = max(probabilidades)
+        except Exception as e:
+            logger.error(f"Error en predicción ML: {str(e)}")
+            return jsonify({
+                "error": "Error interno en el modelo de predicción",
+                "status": "error"
+            }), 500
+
         # Sistema de corrección inteligente con PRIORIDADES CLARAS
-        
+
         # PRIORIDAD 1: Frases explícitamente NEGATIVAS (máxima prioridad)
         if any(frase in texto for frase in frases_muy_negativas):
             pred = "negativo"
             confianza = 0.98
-            print(f"DETECCIÓN NEGATIVA FORZADA: {texto}")
-        
+            logger.info(f"DETECCIÓN NEGATIVA FORZADA: {texto[:50]}...")
+
         # PRIORIDAD 2: Verificar deserción
         elif any(palabra in texto for palabra in palabras_desercion):
             pred = "desercion"
             confianza = 0.95
-            print(f"DETECCIÓN DESERCIÓN: {texto}")
-        
+            logger.info(f"DETECCIÓN DESERCIÓN: {texto[:50]}...")
+
         # PRIORIDAD 3: Verificar frases explícitamente positivas
         elif any(frase in texto for frase in frases_muy_positivas):
             pred = "positivo"
             confianza = 0.93
-            print(f"DETECCIÓN POSITIVA: {texto}")
-            
+            logger.info(f"DETECCIÓN POSITIVA: {texto[:50]}...")
+
         # PRIORIDAD 4: Sistema de conteo y análisis
         else:
             # Contar indicadores en el texto
             positivas = sum(1 for palabra in palabras_muy_positivas if palabra in texto)
             desercion_palabras = sum(1 for palabra in palabras_desercion if palabra in texto)
             negativas_generales = sum(1 for palabra in palabras_negativas_generales if palabra in texto)
-            
-            print(f"CONTEO - Positivas: {positivas}, Negativas: {negativas_generales}, Deserción: {desercion_palabras}")
-            
+
+            logger.debug(f"CONTEO - Positivas: {positivas}, Negativas: {negativas_generales}, Deserción: {desercion_palabras}")
+
             # Si hay más indicadores negativos que positivos
             if negativas_generales > positivas and negativas_generales > 0:
                 if pred not in ["matematicas", "fisica", "quimica", "programacion"]:
                     pred = "negativo"
                     confianza = 0.87
-                    print(f"RECLASIFICACIÓN A NEGATIVO por conteo: {texto}")
-            
+                    logger.info(f"RECLASIFICACIÓN A NEGATIVO por conteo: {texto[:50]}...")
+
             # Si hay palabras positivas claras sobre la escuela
             elif positivas > 0 and ("escuela" in texto or "universidad" in texto or "estudiar" in texto):
                 if not any(neg in texto for neg in frases_muy_negativas):
                     pred = "positivo"
                     confianza = 0.85
-                    print(f"RECLASIFICACIÓN A POSITIVO: {texto}")
-            
+                    logger.info(f"RECLASIFICACIÓN A POSITIVO: {texto[:50]}...")
+
         # Elegir un consejo según categoría
         consejo = random.choice(consejos.get(pred, consejos["motivacion"]))
-        
+
         # Respuesta más natural
         respuestas_naturales = {
             "matematicas": "He identificado que requieres orientación en el área de matemáticas.",
@@ -755,9 +766,9 @@ def clasificar():
             "positivo": "Es gratificante recibir comentarios constructivos y positivos sobre tu experiencia educativa.",
             "negativo": "Comprendo que enfrentas desafíos académicos que pueden generar estrés o frustración."
         }
-        
+
         respuesta = respuestas_naturales.get(pred, f"He identificado tu consulta sobre: {pred}")
-        
+
         result = {
             "respuesta": respuesta,
             "consejo": consejo,
@@ -765,10 +776,10 @@ def clasificar():
             "confianza": round(confianza, 4),
             "status": "success"
         }
-        
-        logger.info(f"Clasificación exitosa: {pred}")
+
+        logger.info(f"Clasificación exitosa: {pred} (confianza: {confianza:.2f})")
         return jsonify(result)
-    
+
     except Exception as e:
         logger.error(f"Error en clasificación: {str(e)}")
         return jsonify({
