@@ -624,39 +624,67 @@ def clasificar():
         texto = texto.lower().strip()
         logger.info(f"Procesando texto: {texto[:50]}...")
         
-        # Sistema de detección mejorado con palabras clave
+        # Sistema de detección mejorado con palabras clave más precisas
         palabras_muy_positivas = [
-            "me gusta", "me encanta", "amo", "disfruto", "genial", "bueno", "bien", 
+            "me gusta", "me encanta", "amo", "disfruto", "genial", "bueno", "bien",
             "contento", "feliz", "excelente", "fantástico", "maravilloso", "perfecto",
-            "increíble", "fascinante", "divertido", "interesante", "motivado"
+            "increíble", "fascinante", "divertido", "interesante", "motivado", "inspirado",
+            "agrada", "encanta", "fascina", "maravilloso", "espectacular", "magnífico",
+            "estupendo", "brillante", "admirable", "notable", "destacado", "sobresaliente",
+            "positivo", "constructivo", "útil", "valioso", "beneficioso", "provechoso",
+            "satisfactorio", "gratificante", "placentero", "delicioso", "gozoso",
+            "alegre", "animado", "entusiasta", "apasionado", "ardiente", "ferviente",
+            "emocionado", "eufórico", "exultante", "jubiloso", "radiante", "resplandeciente"
         ]
-        
+
         palabras_desercion = [
             "quiero dejar", "voy a abandonar", "me quiero salir", "quiero renunciar",
             "no aguanto más", "no soporto", "odio", "abandonar", "dejar todo",
-            "salirme", "cambiarme de carrera", "esto no es para mí"
+            "salirme", "cambiarme de carrera", "esto no es para mí", "renunciar",
+            "abandonar estudios", "dejar universidad", "salir de la carrera"
         ]
-        
+
         palabras_negativas_generales = [
             "difícil", "complicado", "no entiendo", "frustra", "estresado", "abrumado",
             "batallando", "no me sale", "me cuesta", "desespera", "fastidio", "aburrido",
             "reprobando", "reprobé", "repruebo", "calificaciones bajas", "malas notas",
-            "fracasando", "fallando", "perdiendo materias", "mal en el examen", "muy mal"
+            "fracasando", "fallando", "perdiendo materias", "mal en el examen", "muy mal",
+            "terrible", "horrible", "pésimo", "desastroso", "catastrófico", "nefasto",
+            "lamentable", "deplorable", "desagradable", "molesto", "irritante", "fastidioso",
+            "tedioso", "monótono", "soporífero", "insoportable", "intolerable", "odioso",
+            "detestable", "repugnante", "repulsivo", "asqueroso", "vomitivo", "nauseabundo",
+            "frustrante", "desalentador", "descorazonador", "desmoralizador", "decepcionante",
+            "desilusionador", "triste", "apenado", "afligido", "angustiado", "atormentado",
+            "torturado", "sufrido", "doloroso", "doler", "duelo", "pena", "pesar", "congoja"
         ]
-        
-        # Frases completas que indican positividad clara
+
+        # Frases completas que indican positividad clara sobre la institución
         frases_muy_positivas = [
             "me gusta la escuela", "me gusta estudiar", "me gusta la universidad",
             "me encanta aprender", "disfruto las clases", "amo mi carrera",
-            "me gusta mi carrera", "estoy feliz estudiando", "me motiva estudiar"
+            "me gusta mi carrera", "estoy feliz estudiando", "me motiva estudiar",
+            "la universidad es buena", "la escuela es buena", "estoy bien en la universidad",
+            "me siento cómodo aquí", "la universidad está genial", "la escuela está genial",
+            "que buena está la universidad", "me fascina mi carrera", "amo estudiar",
+            "me encanta esta universidad", "disfruto mucho las clases", "me gusta aprender",
+            "estoy muy contento aquí", "me parece excelente la escuela", "la universidad es excelente",
+            "la escuela es excelente", "estoy feliz con mis estudios", "la universidad me gusta",
+            "la escuela me gusta", "disfruto mi carrera", "amo la universidad", "amo la escuela"
         ]
-        
+
         # Frases que SIEMPRE deben ser clasificadas como negativas
         frases_muy_negativas = [
             "estoy reprobando", "reprobé", "tengo malas notas", "saqué malas calificaciones",
             "me fue mal", "estoy fracasando", "no puedo aprobar", "perdí la materia",
             "tengo calificaciones bajas", "voy mal en", "me está yendo mal",
-            "no logro aprobar", "siempre repruebo", "no paso las materias"
+            "no logro aprobar", "siempre repruebo", "no paso las materias",
+            "fracasé", "suspendí", "no aprobé", "repetí", "perdí el año",
+            "estoy en riesgo de reprobar", "voy a reprobar", "tengo miedo de reprobar",
+            "no entiendo nada", "no me entra nada", "esto es muy difícil para mí",
+            "esto me supera", "no doy más", "estoy perdido", "no veo salida",
+            "esto es imposible", "no puedo con esto", "me siento incapaz",
+            "soy un fracaso", "no sirvo para esto", "esto no es para mí",
+            "me equivoqué de carrera", "esta carrera no me gusta", "odio esta materia"
         ]
         
         # Clasificación por ML primero
