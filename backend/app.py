@@ -11,11 +11,11 @@ CORS(app)
 # Configuración para servir archivos estáticos
 @app.route('/')
 def serve_frontend():
-    return send_from_directory('frontend', 'index.html')
+    return send_from_directory('../frontend', 'index.html')
 
 @app.route('/<path:filename>')
 def serve_static(filename):
-    return send_from_directory('frontend', filename)
+    return send_from_directory('../frontend', filename)
 
 # Entrenamiento simple con datos básicos
 vectorizer = CountVectorizer()
